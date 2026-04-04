@@ -10,8 +10,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8">
         <meta name="description" content="Dedicada a la venta de menús y platos a la carta con especialidad en ceviche.
               Cuenta con dos locales ubicados en el distrito de San Miguel.">
-        <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
-        <link rel="stylesheet" href="CSS/index.css">
+        <link rel="icon" href="../imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="../CSS/index.css">
     </head>
     <body>
         <header class="header">

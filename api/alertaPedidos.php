@@ -21,10 +21,10 @@ $segundos_refresh = 15;
     <meta http-equiv="refresh" content="<?= $segundos_refresh ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitor de Cocina / Pedidos</title>
-    <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+    <link rel="icon" href="../imagenes/DC_Logo_Cabecera.png">
     
-    <link rel="stylesheet" href="CSS/alertaPedidos.css"> 
-    <link rel="stylesheet" href="CSS/formInsumo.css"/>
+    <link rel="stylesheet" href="../CSS/alertaPedidos.css"> 
+    <link rel="stylesheet" href="../CSS/formInsumo.css"/>
 </head>
 <body>
 
