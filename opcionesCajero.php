@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Opciones de Administración</title>
+        <link rel="stylesheet" href="CSS/opciones.css"/> 
+        </head>
+    <body>
+        
+        <nav class="admin-menu">
+            <ul>
+                <li class="has-submenu">
+                    <a href="#">Gestión de Pagos ▼</a>
+                    <ul class="submenu">
+                        <li><a href="formPago.php" target="contenidoPrincipal">RegistrarPago</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+    </body>
+</html>

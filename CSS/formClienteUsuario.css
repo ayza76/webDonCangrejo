@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap');
+
+:root{
+    /*paleta de colores*/
+    --color-background-light:#E3E7ED;/*fondo de pantalla*/
+    --color-surface:#FFFFFF;/*color blanco*/
+
+    /*colores de contraste y texto*/
+    --color-text-dark: #1D2633; /*Azul Naval*/
+    --color-text-secondary: #4D5C6B;/*Gris Azulado*/
+
+    /*Acentos y Marcas*/
+    --color-primary-accent: #00BCD4;
+    --color-secondary-action: #FF8A00;
+    --color-modificar-accent: #4CAF50;
+    --color-delete: #E53E3E;
+    /*Variable funcionales*/
+    --shadow-light: 0 4px 10px rgba(0,0,0,0.3);/*sombra*/
+}
+body{
+    margin:0;
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+    font-family: 'Montserrat',sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+header{
+    background-color: var(--color-surface);
+    padding:20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);/*sombra en la cabecera*/
+}
+.back-link{
+    color: var(--color-text-secondary);
+    font-weight: 900;
+    text-decoration: none;
+    transition:color 0.3s;
+}
+.back-link:hover{
+    color: var(--color-primary-accent);
+}
+h1{
+    color:var(--color-primary-accent);
+    padding: 10px 0;
+    margin:0;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 2.5em;
+    letter-spacing: 3px;
+}
+h2{
+    color:var(--color-text-secondary);
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    font-weight:800;
+    font-size:1.5em;
+    margin-top:0;
+    margin-bottom: 20px;
+}
+main{
+    flex-grow: 1;
+    background-color: var(--color-background-light);
+    text-align:center;
+    padding-top:50px
+}
+
+#formUsuarioCliente{
+    background-color: var(--color-surface);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30%;
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    border-radius:8px;
+    box-shadow: var(--shadow-light);
+    text-align:left;
+    gap:15px;
+}
+input[type="text"],input[type="password"]{
+    width:100%;
+    padding:10px 15px;
+    border-radius:4px;
+    border: 1px solid #DDDDDD;
+    background-color: var(--color-surface);
+    color: var(--color-text-dark);
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+input:focus{
+    outline: none;
+    border-color: var(--color-primary-accent);
+}
+label{
+    display: block;
+    margin-bottom:5px;
+    color: var(--color-text-secondary);
+    font-size: 0.9em;
+    font-weight: 700;
+}
+.form-group{
+    width: 100%;
+}
+
+.grupo-botones{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 20px;
+    justify-content: space-between;
+}
+.btn{
+    flex-basis: 47%;
+    padding: 10px 5px;
+    border: none;
+    border-radius:4px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s, opacity 0.3s;
+    font-size: 0.7em;
+    text-align: center;
+    min-width:30%;
+
+}
+.btn-buscar{
+    background-color: #ff3333;
+    color:var(--color-surface);
+}
+.btn-buscar:hover{
+    background-color:#ff3393;    
+}
+
+.btn-guardar {
+    background-color: var(--color-secondary-action); 
+    color: var(--color-surface); 
+}
+.btn-guardar:hover {
+    background-color: #e67d00; 
+}
+
+.btn-modificar {
+    background-color: var(--color-modificar-accent); 
+    color: var(--color-surface); 
+}
+.btn-modificar:hover {
+    background-color: #43A047; 
+}
+
+.btn-eliminar {
+    background-color: var(--color-delete); 
+    color: var(--color-surface); 
+}
+.btn-eliminar:hover {
+    background-color: #c53030; 
+}
+
+.btn-limpiar {
+    background-color: var(--color-surface); 
+    color: var(--color-primary-accent); 
+    border: 2px solid var(--color-primary-accent);
+}
+.btn-limpiar:hover {
+    background-color: var(--color-primary-accent); 
+    color: var(--color-surface); 
+}
+.tabla-cliente-container {
+    width: 90%; 
+    max-width: 1200px;
+    margin: 30px auto;
+    overflow-x: auto;
+}
+
+.tabla-cliente {
+    width: 100%;
+    border-collapse: collapse; 
+    border: 2px solid #333333;
+    min-width: 900px; 
+}
+
+
+tr {
+    background-color: white;
+}
+th,td{
+    padding: 10px; 
+    border: 1px solid #cccccc;
+}
+
+/*vista en movil*/
+@media(max-width: 500px){
+    #formUsuarioInterno{
+        max-width: 95%;
+        padding: 20px 15px;
+    }
+    .grupo-botones{
+        justify-content:space-around;
+        gap: 10px 4%;
+    }
+    .btn{
+        flex-basis:48%;
+        font-size: 0.8em;
+    }
+    #formCliente{
+        max-width: 80%;
+    }
+        
+}

@@ -1,0 +1,122 @@
+<?php
+session_start();
+
+require 'conexion.php'; 
+
+$error_login = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $usuario = trim($_POST["usuario"] ?? ''); 
+    $contraseña = trim($_POST["contrasena"] ?? '');
+    $rol_ingresado = trim($_POST["rol"] ?? '');
+
+    if (empty($usuario) || empty($contraseña) || empty($rol_ingresado)) {
+        $error_login = "Por favor, complete todos los campos (Usuario, Contraseña y Rol).";
+    }
+
+    if (empty($error_login)) {
+        
+        $usuario_escapado = mysqli_real_escape_string($con, $usuario);
+        $contrasena_escapada = mysqli_real_escape_string($con, $contraseña);
+        $rol_escapado = mysqli_real_escape_string($con, $rol_ingresado);
+        
+
+        $sql = "SELECT id_usuario, rol 
+                FROM usuario_interno 
+                WHERE usuario = '$usuario_escapado' 
+                  AND contrasena = '$contrasena_escapada' 
+                  AND rol = '$rol_escapado'
+                  AND estado = 'Activo'";
+
+        $result = mysqli_query($con, $sql);
+
+        if ($result) {
+
+            if (mysqli_num_rows($result) == 1) {
+                
+                $row = mysqli_fetch_assoc($result);
+                
+                $_SESSION["interno_loggedin"] = true;
+                $_SESSION["id_usuario"] = $row['id_usuario'];
+                $_SESSION["rol"] = $row['rol'];
+
+                $destino = match ($row['rol']) {
+                    'Administrador' => 'menuAdministrador.php',
+                    'Mesero' => 'menuMesero.php',
+                    'Cocinero' => 'menuCocinero.php',
+                    'Cajero' => 'menuCajero.php',
+                    default => 'index.php',
+                };
+
+                header("location: $destino"); 
+                exit;
+
+            } else {
+
+                $error_login = "Acceso denegado. Verifique su usuario, contraseña y rol.";
+            }
+        } else {
+            $error_login = "Error en la consulta de la base de datos: " . mysqli_error($con);
+        }
+    }
+
+    if (isset($con)) {
+        mysqli_close($con);
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <title>Acceso de Empleados</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png">
+    <link rel="stylesheet" href="CSS/login.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <header class="login-header">
+        <a href="index.php" class="back-link">
+            &larr; Página Principal
+        </a>
+    </header>
+
+    <main class="login-main">
+        <h1 class="titulo-principal">Cevichería Don Cangrejo</h1>
+        <h2 class="subtitulo-acceso">Acceso de Usuarios Internos</h2>
+
+        <div class="login-card">
+            
+            <?php
+            if (!empty($error_login)) {
+                echo '<div class="alerta-error">' . $error_login . '</div>';
+            }
+            ?>
+            
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                
+                <label for="usuario">Nombre de Usuario</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Ingrese su nombre de usuario" required>
+
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
+                
+                <label for="rol">Rol</label>
+                <select id="rol" name="rol" required>
+                    <option value="" disabled selected>Seleccione su Rol</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Mesero">Mesero</option>
+                    <option value="Cocinero">Cocinero</option>
+                    <option value="Cajero">Cajero</option>
+                </select>
+
+                <div class="grupo-botones">
+                    <button type="submit" class="btn btn-ingresar">Ingresar</button>
+                    <button type="reset" class="btn btn-limpiar">Limpiar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

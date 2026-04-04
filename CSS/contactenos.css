@@ -1,0 +1,175 @@
+:root {
+    --color-primary: #4DD0E1;
+    --color-secondary: #FFB300;
+    --color-accent: #00C853;
+    --color-background-light: #FAFAFA;
+    --color-text-dark: #333333;
+    --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.contacto-header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    background-color: white;
+    box-shadow: var(--shadow-small);
+    position: relative;
+}
+
+.back-link {
+    position: absolute;
+    left: 20px;
+    top: 30px;
+    text-decoration: none;
+    color: var(--color-primary);
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--color-secondary);
+}
+
+.titulo-principal {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-primary);
+    font-size: 2.5em;
+    margin: 0;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.subtitulo {
+    font-size: 1.1em;
+    color: #666;
+    margin: 5px 0 0;
+}
+
+.contacto-main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.contacto-grid {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.card-form, .card-info {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease;
+    flex: 1;
+    min-width: 300px;
+}
+
+h2
+{
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-secondary);
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: var(--color-text-dark);
+}
+
+input[type="text"], input[type="email"], input[type="tel"], textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.btn-enviar {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: var(--shadow-small);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background-color: #00A343;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.info-item {
+    margin-bottom: 20px;
+}
+
+.info-item .subtitulo {
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.redes {
+    margin-top: 30px;
+}
+
+.icono-redes {
+    height: 40px;
+    width: auto;
+    transition: transform 0.2s ease;
+}
+
+.icono-redes:hover {
+    transform: scale(1.1);
+}
+
+.mapa-ubicacion {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+}
+
+@media (max-width: 768px) {
+    .contacto-grid {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,96 @@
+.alerta-success { 
+    background: #d4edda; 
+    color: #155724; 
+    padding: 10px; 
+    margin-bottom: 20px; 
+    border: 1px solid #c3e6cb; 
+    border-radius: 5px;
+}
+
+.alerta-error { 
+    background: #f8d7da; 
+    color: #721c24; 
+    padding: 10px; 
+    margin-bottom: 20px; 
+    border: 1px solid #f5c6cb; 
+    border-radius: 5px;
+}
+
+.seccion-formulario { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    margin-bottom: 20px; 
+}
+
+.columna { 
+    flex: 1; 
+    min-width: 300px; 
+    background: #f9f9f9; 
+    padding: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+}
+
+.columna h3 { 
+    border-bottom: 2px solid #ff5722; 
+    padding-bottom: 5px; 
+    margin-top: 0; 
+    color: #333;
+}
+
+.tabla-detalle { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: #fff; 
+    margin-top: 10px; 
+}
+
+.tabla-detalle th, 
+.tabla-detalle td { 
+    border: 1px solid #ccc; 
+    padding: 8px; 
+    text-align: center; 
+}
+
+.tabla-detalle th { 
+    background: #333; 
+    color: #fff; 
+}
+
+.btn-agregar { 
+    background: #28a745; 
+    color: #fff; 
+    width: 100%; 
+    padding: 10px; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: bold; 
+    margin-top: 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.btn-agregar:hover {
+    background: #218838;
+}
+
+.btn-quitar { 
+    background: #dc3545; 
+    color: #fff; 
+    border: none; 
+    padding: 5px 10px; 
+    cursor: pointer; 
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.btn-quitar:hover {
+    background: #c82333;
+}
+
+.total-row { 
+    font-weight: bold; 
+    background: #eee; 
+    font-size: 1.1em; 
+}

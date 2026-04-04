@@ -1,0 +1,57 @@
+.alerta-success { 
+    background: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; 
+    border: 1px solid #c3e6cb; border-radius: 5px; text-align: center; font-weight: bold;
+}
+.alerta-error { 
+    background: #f8d7da; color: #721c24; padding: 15px; margin-bottom: 20px; 
+    border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;
+}
+
+.caja-container {
+    display: flex; flex-wrap: wrap; gap: 30px; max-width: 1200px; margin: 0 auto;
+}
+
+/* Panel Izquierdo */
+.panel-cobro {
+    flex: 1; min-width: 350px; background: #fff; padding: 25px; 
+    border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #28a745;
+}
+.panel-cobro h3 { margin-top: 0; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+/* Vista Previa del Ticket (NUEVO) */
+.ticket-preview {
+    background-color: #fffbe6; /* Color amarillento tipo papel */
+    border: 1px solid #ffe58f;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: 'Courier New', Courier, monospace; /* Fuente tipo ticket */
+    color: #555;
+    min-height: 50px;
+}
+.ticket-titulo { font-weight: bold; border-bottom: 1px dashed #ccc; display: block; margin-bottom: 10px; }
+
+/* Panel Derecho */
+.panel-historial {
+    flex: 2; min-width: 400px; background: #fff; padding: 25px; 
+    border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.display-total {
+    background-color: #f8f9fa; border: 2px dashed #ccc; padding: 15px; 
+    text-align: center; margin: 20px 0; border-radius: 8px;
+}
+.display-total label { display: block; font-size: 0.9em; color: #666; margin-bottom: 5px; }
+.total-grande { font-size: 2.5em; font-weight: bold; color: #28a745; margin: 0; }
+
+.btn-cobrar {
+    background-color: #28a745; color: white; width: 100%; padding: 15px; 
+    border: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; cursor: pointer;
+}
+.btn-cobrar:hover { background-color: #218838; }
+
+/* Tabla */
+.tabla-pagos { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.tabla-pagos th, .tabla-pagos td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+.tabla-pagos th { background-color: #343a40; color: white; }
+.metodo-tag { padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; background: #e2e6ea; color: #333; }

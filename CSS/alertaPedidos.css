@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+/* Configuración General */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Cabecera */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+small {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.btn-volver {
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-volver:hover {
+    background: #555;
+}
+
+/* Contenedor de la Tabla */
+.contenedor-tabla {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow-x: auto; /* Responsive */
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Elementos Visuales (Badges) */
+.badge-mesa { 
+    background-color: #ff5722; 
+    color: white; 
+    padding: 8px 12px; 
+    border-radius: 50%; 
+    font-weight: bold; 
+    font-size: 1.3em; 
+    display: inline-block; 
+    min-width: 25px; 
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.badge-para-llevar {
+    background-color: #6f42c1;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.info-delivery { 
+    font-size: 0.9em; 
+    color: #d63384; 
+    font-weight: bold; 
+    background-color: #fce4ec;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.col-detalle { 
+    font-size: 0.95em; 
+    line-height: 1.6; 
+    color: #444; 
+}
+
+/* ESTADOS DE FILA (Colores dinámicos) */
+/* Pendiente: Fondo blanco y borde amarillo fuerte */
+.fila-Pendiente { 
+    background-color: #ffffff; 
+    border-left: 6px solid #ffc107; 
+}
+
+/* Entregado/Pagado: Fondo gris claro, borde verde, texto atenuado */
+.fila-Entregado, .fila-Pagado { 
+    background-color: #f8f9fa; 
+    color: #6c757d; 
+    border-left: 6px solid #28a745; 
+}
+
+/* Anulado: Fondo rojizo suave, borde rojo */
+.fila-Anulado { 
+    background-color: #fff5f5; 
+    color: #a71d2a; 
+    border-left: 6px solid #dc3545; 
+}
+
+/* Formulario pequeño de estado */
+.form-estado { 
+    display: flex; 
+    gap: 8px; 
+    justify-content: center;
+}
+
+.select-estado { 
+    padding: 6px; 
+    border-radius: 4px; 
+    border: 1px solid #ccc; 
+    font-weight: bold; 
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-check { 
+    background-color: #28a745; 
+    color: white; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 1.1em;
+    transition: background 0.2s;
+}
+
+.btn-check:hover { 
+    background-color: #218838; 
+}

@@ -1,0 +1,320 @@
+<?php
+session_start();
+require 'conexion.php'; 
+
+if (!isset($_SESSION['carrito'])) {
+    $_SESSION['carrito'] = [];
+}
+
+$id_cliente = '';
+$id_usuario = '1'; 
+$id_mesa = '';
+$tipo_pedido = '';
+$direccion_entrega = '';
+$telefono_contacto = '';
+$fecha_hora = date('Y-m-d H:i:s'); 
+
+$alerta_mensaje = "";
+$alerta_tipo = "info"; 
+$accion = $_POST['accion'] ?? '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $id_cliente = $_POST['id_cliente'] ?? '';
+    $id_mesa = $_POST['id_mesa'] ?? '';
+    $tipo_pedido = $_POST['tipo_pedido'] ?? '';
+    $direccion_entrega = $_POST['direccion_entrega'] ?? '';
+    $telefono_contacto = $_POST['telefono_contacto'] ?? '';
+
+    if ($accion == 'limpiar') {
+        $_SESSION['carrito'] = [];
+        $id_cliente = $id_mesa = $tipo_pedido = $direccion_entrega = $telefono_contacto = '';
+        $alerta_mensaje = "Formulario reiniciado.";
+    }
+    
+    elseif ($accion == 'agregar_producto') {
+        $id_prod_form = $_POST['id_producto'] ?? '';
+        $cant_form = $_POST['cantidad'] ?? 0;
+
+        if (!empty($id_prod_form) && $cant_form > 0) {
+            $id_esc = mysqli_real_escape_string($con, $id_prod_form);
+            
+            $sql_prod = "SELECT id_producto, nombre, precio FROM producto WHERE id_producto = '$id_esc'";
+            $res_prod = mysqli_query($con, $sql_prod);
+
+            if ($res_prod && $row_prod = mysqli_fetch_assoc($res_prod)) {
+                
+                $precio = $row_prod['precio'];
+                $subtotal = $precio * $cant_form;
+
+                $_SESSION['carrito'][] = [
+                    'id_producto' => $row_prod['id_producto'],
+                    'nombre' => $row_prod['nombre'],
+                    'cantidad' => $cant_form,
+                    'precio_unitario' => $precio,
+                    'subtotal' => $subtotal
+                ];
+            }
+        } else {
+            $alerta_mensaje = "Seleccione un producto y cantidad válida.";
+            $alerta_tipo = "error";
+        }
+    }
+
+    elseif ($accion == 'quitar_item') {
+        $indice = $_POST['indice_eliminar'] ?? -1;
+        if (isset($_SESSION['carrito'][$indice])) {
+            unset($_SESSION['carrito'][$indice]);
+            $_SESSION['carrito'] = array_values($_SESSION['carrito']); 
+        }
+    }
+
+    elseif ($accion == 'guardar_pedido') {
+        
+        if (empty($id_cliente) || empty($tipo_pedido)) {
+            $alerta_mensaje = "ERROR: Seleccione Cliente y Tipo de Pedido.";
+            $alerta_tipo = "error";
+        } elseif (count($_SESSION['carrito']) == 0) {
+            $alerta_mensaje = "ERROR: El carrito está vacío.";
+            $alerta_tipo = "error";
+        } else {
+            
+            $total_pedido = 0;
+            foreach ($_SESSION['carrito'] as $item) {
+                $total_pedido += $item['subtotal'];
+            }
+
+            $estado_inicial = 'Pendiente';
+            
+            $cli_e = mysqli_real_escape_string($con, $id_cliente);
+            $usu_e = mysqli_real_escape_string($con, $id_usuario);
+            $mesa_e = mysqli_real_escape_string($con, $id_mesa);
+            $tipo_e = mysqli_real_escape_string($con, $tipo_pedido);
+            $dir_e = mysqli_real_escape_string($con, $direccion_entrega);
+            $tel_e = mysqli_real_escape_string($con, $telefono_contacto);
+            $fecha_e = $fecha_hora;
+
+            $mesa_sql = empty($mesa_e) ? "NULL" : "'$mesa_e'";
+
+            $sql_cabecera = "INSERT INTO pedido (id_cliente, id_usuario, id_mesa, tipo_pedido, fecha_hora, estado, total, direccion_entrega, telefono_contacto)
+                             VALUES ('$cli_e', '$usu_e', $mesa_sql, '$tipo_e', '$fecha_e', '$estado_inicial', '$total_pedido', '$dir_e', '$tel_e')";
+
+            if (mysqli_query($con, $sql_cabecera)) {
+                $id_pedido_generado = mysqli_insert_id($con);
+
+                $errores = false;
+                foreach ($_SESSION['carrito'] as $d) {
+                    $id_p = $d['id_producto'];
+                    $cant = $d['cantidad'];
+                    $pu = $d['precio_unitario'];
+                    $sub = $d['subtotal'];
+
+                    $sql_det = "INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario, subtotal)
+                                VALUES ('$id_pedido_generado', '$id_p', '$cant', '$pu', '$sub')";
+                    
+                    if (!mysqli_query($con, $sql_det)) $errores = true;
+                }
+
+                if (!$errores) {
+                    $alerta_mensaje = "✅ Pedido #$id_pedido_generado guardado exitosamente.";
+                    $alerta_tipo = "success";
+                    $_SESSION['carrito'] = []; 
+                    $id_cliente = $id_mesa = $tipo_pedido = $direccion_entrega = $telefono_contacto = '';
+                } else {
+                    $alerta_mensaje = "⚠️ Pedido guardado con errores en el detalle.";
+                    $alerta_tipo = "warning";
+                }
+
+            } else {
+                $alerta_mensaje = "❌ Error al crear pedido: " . mysqli_error($con);
+                $alerta_tipo = "error";
+            }
+        }
+    }
+}
+
+$sql_clientes = "SELECT id_cliente, nombre_completo FROM cliente ORDER BY nombre_completo";
+$res_clientes = mysqli_query($con, $sql_clientes);
+
+$sql_productos = "SELECT id_producto, nombre, precio FROM producto ORDER BY nombre"; 
+$res_productos = mysqli_query($con, $sql_productos);
+
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registrar Pedido</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/formInsumo.css"/> 
+        <link rel="stylesheet" href="CSS/formPedidos.css"/> 
+    </head>
+    <body>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Nuevo Pedido</h2>
+            
+            <?php if (!empty($alerta_mensaje)): ?>
+                <div class="<?= 'alerta-'.$alerta_tipo ?>"><?= $alerta_mensaje ?></div>
+            <?php endif; ?>
+
+            <form action="formPedido.php" method="post">
+                
+                <div class="seccion-formulario">
+                    <div class="columna">
+                        <h3>1. Datos del Pedido</h3>
+                        
+                        <div class="form-group">
+                            <label>Cliente:</label>
+                            <select name="id_cliente" required>
+                                <option value="">-- Seleccione Cliente --</option>
+                                <?php 
+                                if($res_clientes) {
+                                    while($c = mysqli_fetch_assoc($res_clientes)): ?>
+                                        <option value="<?= $c['id_cliente'] ?>" <?= $id_cliente == $c['id_cliente'] ? 'selected' : '' ?>>
+                                            <?= $c['nombre_completo'] ?>
+                                        </option>
+                                    <?php endwhile; 
+                                } ?>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Tipo:</label>
+                            <select name="tipo_pedido" id="tipo_pedido" required onchange="toggleDelivery()">
+                                <option value="Mesa" <?= $tipo_pedido == 'Mesa' ? 'selected' : '' ?>>Mesa</option>
+                                <option value="Para Llevar" <?= $tipo_pedido == 'Para Llevar' ? 'selected' : '' ?>>Para Llevar</option>
+                                <option value="Delivery" <?= $tipo_pedido == 'Delivery' ? 'selected' : '' ?>>Delivery</option>
+                                <option value="Online" <?= $tipo_pedido == 'Online' ? 'selected' : '' ?>>Online</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="grupo_mesa">
+                            <label>Mesa:</label>
+                            <input type="number" name="id_mesa" value="<?= htmlspecialchars($id_mesa) ?>" placeholder="Nro Mesa">
+                        </div>
+                        
+                        <div id="grupo_delivery" style="display: none;">
+                            <div class="form-group">
+                                <label>Dirección:</label>
+                                <input type="text" name="direccion_entrega" value="<?= htmlspecialchars($direccion_entrega) ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono:</label>
+                                <input type="text" name="telefono_contacto" value="<?= htmlspecialchars($telefono_contacto) ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columna">
+                        <h3>2. Agregar Producto</h3>
+                        
+                        <div class="form-group">
+                            <label>Producto:</label>
+                            <select name="id_producto">
+                                <option value="">-- Buscar Producto --</option>
+                                <?php 
+                                if($res_productos) {
+                                    while($p = mysqli_fetch_assoc($res_productos)): ?>
+                                        <option value="<?= $p['id_producto'] ?>">
+                                            <?= htmlspecialchars($p['nombre']) ?> - S/ <?= $p['precio'] ?>
+                                        </option>
+                                    <?php endwhile; 
+                                } ?>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Cantidad:</label>
+                            <input type="number" name="cantidad" value="1" min="1">
+                        </div>
+
+                        <button type="submit" name="accion" value="agregar_producto" class="btn-agregar">+ AGREGAR</button>
+                    </div>
+                </div>
+
+                <div class="tabla-insumos-container">
+                    <h3>3. Detalle (Carrito)</h3>
+                    <table class="tabla-detalle">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cant.</th>
+                                <th>Subtotal</th>
+                                <th>Quitar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $total = 0;
+                            if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0): 
+                                foreach ($_SESSION['carrito'] as $idx => $item):
+                                    $total += $item['subtotal'];
+                            ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($item['nombre']) ?></td>
+                                    <td><?= number_format($item['precio_unitario'], 2) ?></td>
+                                    <td><?= $item['cantidad'] ?></td>
+                                    <td><?= number_format($item['subtotal'], 2) ?></td>
+                                    <td>
+                                        <button type="button" class="btn-quitar" onclick="eliminarItem(<?= $idx ?>)">X</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; else: ?>
+                                <tr><td colspan="5">Ningún producto agregado.</td></tr>
+                            <?php endif; ?>
+                            
+                            <tr class="total-row">
+                                <td colspan="3" style="text-align: right;">TOTAL:</td>
+                                <td>S/ <?= number_format($total, 2) ?></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <input type="hidden" name="indice_eliminar" id="indice_eliminar">
+
+                    <div class="grupo-botones" style="margin-top: 20px;">
+                        <button type="submit" name="accion" value="guardar_pedido" class="btn btn-guardar">GUARDAR PEDIDO</button>
+                        <button type="submit" name="accion" value="limpiar" class="btn btn-limpiar">CANCELAR</button>
+                    </div>
+                </div>
+
+            </form>
+        </main>
+
+        <script>
+            function toggleDelivery() {
+                const tipo = document.getElementById('tipo_pedido').value;
+                const dDel = document.getElementById('grupo_delivery');
+                const dMes = document.getElementById('grupo_mesa');
+                
+                if (tipo === 'Delivery') {
+                    dDel.style.display = 'block';
+                    dMes.style.display = 'none';
+                } else if (tipo === 'Mesa') {
+                    dDel.style.display = 'none';
+                    dMes.style.display = 'block';
+                } else {
+                    dDel.style.display = 'none';
+                    dMes.style.display = 'none';
+                }
+            }
+            window.onload = toggleDelivery;
+
+            function eliminarItem(index) {
+                document.getElementById('indice_eliminar').value = index;
+                const btn = document.createElement('button');
+                btn.type = 'submit';
+                btn.name = 'accion';
+                btn.value = 'quitar_item';
+                btn.style.display = 'none';
+                document.forms[0].appendChild(btn);
+                btn.click();
+            }
+        </script>
+    </body>
+</html>

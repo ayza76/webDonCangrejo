@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Gestion Cliente Usuario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png"/>
+        <link rel="stylesheet" href="CSS/formClienteUsuario.css"/>
+    </head>
+    <body>
+        <header>
+            <a href="index.php" class="back-link">
+                &larr; Página Principal
+            </a>
+        </header>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Crear una cuenta</h2>
+            
+            <form id="formClienteUsuario" action="formClienteUsuario.php" method="post">
+                <input type="hidden" id="id_cliente_usuario" name="id_cliente_usuario" value=""/>
+                <input type="hidden" id="id_cliente" name="id_cliente" value=""/>
+                <div class="form-group">
+                <label for="apnom">Nombre y Apellido</label>
+                <input type="text" id="apnom" name="apnom" required/>
+                </div>
+                <div class="form-group">
+                <label for="apnom">DNI</label>
+                <input type="text" id="dni" name="dni" maxlength="8"/>
+                </div>
+                <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion"/>
+                </div>
+                <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" name="telefono" maxlength="9"/>
+                </div>
+                <div class="form-group">
+                <label for="correo">Correo</label>
+                <input type="text" id="correo" name="correo"/>
+                </div>
+                <div class="form-group">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" name="usuario"/>
+                </div>
+                <div class="form-group">
+                    <label for="contrasena">Contraseña:</label>
+                    <input type="password" id="contrasena" name="contrasena"/>
+                </div>
+                <div class="form-group">
+                    <label for="conf_contrasena">Confirmar Contraseña</label>
+                    <input type="password" id="conf_contrasena" name="conf_contrasena"/>
+                </div>
+                <div class="grupo-botones">
+                    <button type="submit" name="action" value="registrar" class="btn btn-registar">Registrar</button>
+                    <button type="reset" name="action" value="cancelar" class="btn btn-cancelar">Limpiar</button>
+                </div>
+            </form>
+            
+        </main>
+    </body>
+</html>

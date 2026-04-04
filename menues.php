@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Menú del Día</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/menu-dia.css">
+    </head>
+    <body>
+        <header class="menu-dia-header">
+            <a href="index.php" class="back-link">
+                &larr; Página Principal
+            </a>
+            <h1 class="titulo-principal">Menú del Día</h1>
+            <p class="subtitulo">Frescura y sabor para el almuerzo</p>
+        </header>
+
+        <main class="menu-dia-main">
+
+            <div class="menu-grid">
+
+                <section class="menu-card economico-card">
+                    <h2 class="subtitulo-menu">Menú Económico</h2>
+
+                    <div class="categoria-platos">
+                        <h3 class="categoria">Entrada</h3>
+                        <ul>
+                            <li>Sopa de casa de pollo</li>
+                            <li>Arepa Don Cangrejo</li>
+                            <li>Tamal</li>
+                        </ul>
+                    </div>
+
+                    <div class="categoria-platos">
+                        <h3 class="categoria">Plato de Fondo</h3>
+                        <ul>
+                            <li>Tacu Tacu con Pollo a la Huancaína</li>
+                            <li>Sopa seca con Carapulcra de pollo</li>
+                            <li>Pescado a lo macho</li>
+                            <li>Hígado a la parrilla</li>
+                            <li>Saltado de brócoli</li>
+                            <li>Cau-Cau criollo</li>
+                        </ul>
+                    </div>
+
+                    <div class="precio-final">
+                        <p class="precio-base">S/13.00</p>
+                        <p class="precio-especial">+ Ceviche: S/15.00</p>
+                    </div>
+                </section>
+
+                <section class="menu-card ejecutivo-card">
+                    <h2 class="subtitulo-menu">Menú Ejecutivo</h2>
+
+                    <div class="categoria-platos">
+                        <h3 class="categoria">Entrada</h3>
+                        <ul>
+                            <li>Sopa de casa de pollo</li>
+                            <li>Arepa Don Cangrejo</li>
+                            <li>Tamal</li>
+                        </ul>
+                    </div>
+
+                    <div class="categoria-platos">
+                        <h3 class="categoria">Plato de Fondo</h3>
+                        <ul>
+                            <li>Lomo Saltado</li>
+                            <li>Arroz Chaufa</li>
+                            <li>Milanesa de pollo</li>
+                            <li>Saltado de Pollo</li>
+                            <li>Bisteck a lo Pobre</li>
+                            <li>Pechuga a la Plancha</li>
+                            <li>Tallarín Saltado</li>
+                        </ul>
+                    </div>
+
+                    <div class="precio-final">
+                        <p class="precio-base">S/17.00</p>
+                        <p class="precio-especial">+ Ceviche: S/19.00</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer class="menu-dia-footer">
+            <p class="vaso">Cada Menú viene incluido con un vaso de refresco.</p>
+        </footer>
+    </body>
+</html>

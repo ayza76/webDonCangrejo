@@ -1,0 +1,146 @@
+:root {
+    --color-primary: #4DD0E1;
+    --color-secondary: #FFB300;
+    --color-accent: #00C853;
+    --color-background-light: #FAFAFA;
+    --color-text-dark: #333333;
+    --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color:white;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.footer-visitanos p, .footer-info p {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.footer {
+    height: 100px;
+    padding: 25px 20px;
+    background-color: var(--color-primary);
+    color: white;
+    margin-top: auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.footer-visitanos, .footer-info {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.footer-visitanos {
+    text-align: left;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.footer-visitanos h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-secondary);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.footer-visitanos p, .footer-info p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.footer-info {
+    text-align: right;
+}
+
+.copyright, .acceso-link {
+    font-size: 0.9em;
+}
+
+.acceso-link {
+    color: white;
+    text-decoration: underline;
+    display: block;
+    margin-top: 5px;
+}
+
+@media (max-width: 900px) {
+    .hero-text h1 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: auto;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .logo-container {
+        flex-direction: row;
+        margin-bottom: 10px;
+    }
+
+    .nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-bottom: 10px;
+    }
+
+    .nav a {
+        padding: 5px 10px;
+    }
+
+    .hero-section {
+        height: 60vh;
+    }
+    .hero-text h1 {
+        font-size: 2em;
+    }
+
+    .footer-grid {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-visitanos, .footer-info {
+        text-align: center;
+        border-right: none;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-info {
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .menu-grid {
+        flex-direction: column;
+    }
+    .plato-card {
+        max-width: 100%;
+    }
+}

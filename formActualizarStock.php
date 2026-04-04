@@ -1,0 +1,194 @@
+<?php
+session_start();
+require 'conexion.php'; 
+
+$id_movimiento = '';
+$input_insumo = ''; 
+$tipo_movimiento = '';
+$cantidad = '';
+
+$alerta_mensaje = "";
+$alerta_tipo = "info"; 
+$accion = $_POST['accion'] ?? '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    if ($accion == 'limpiar') {
+        $alerta_mensaje = "Pantalla lista para nueva operación.";
+        $alerta_tipo = "info";
+    } 
+    else {
+        $input_insumo = $_POST['id_insumo'] ?? '';
+        $tipo_movimiento = $_POST['tipo_movimiento'] ?? '';
+        $cantidad = $_POST['cantidad'] ?? '';
+
+        if ($accion == 'guardar') {
+            
+            if (empty($input_insumo) || empty($tipo_movimiento) || empty($cantidad)) {
+                $alerta_mensaje = "ERROR: Todos los campos son obligatorios.";
+                $alerta_tipo = "error";
+            } elseif (!is_numeric($cantidad) || $cantidad <= 0) {
+                $alerta_mensaje = "ERROR: La cantidad debe ser un número mayor a 0.";
+                $alerta_tipo = "error";
+            } else {
+                $dato_escapado = mysqli_real_escape_string($con, $input_insumo);
+                
+                $sql_check = "SELECT id_insumo, stock_actual, nombre FROM insumo 
+                              WHERE id_insumo = '$dato_escapado' OR nombre = '$dato_escapado' LIMIT 1";
+                $res_check = mysqli_query($con, $sql_check);
+                
+                if ($res_check && mysqli_num_rows($res_check) > 0) {
+                    $fila = mysqli_fetch_assoc($res_check);
+                    $id_real = $fila['id_insumo'];
+                    $stock_actual_db = floatval($fila['stock_actual']);
+                    $nombre_real = $fila['nombre'];
+                    $cant_float = floatval($cantidad);
+                    
+                    $nuevo_stock = 0;
+                    $puede_guardar = true;
+
+                    if ($tipo_movimiento == 'ENTRADA') {
+                        $nuevo_stock = $stock_actual_db + $cant_float;
+                    } elseif ($tipo_movimiento == 'SALIDA') {
+                        if ($cant_float > $stock_actual_db) {
+                            $alerta_mensaje = "ERROR: No hay suficiente stock para realizar la salida. Stock actual: $stock_actual_db";
+                            $alerta_tipo = "error";
+                            $puede_guardar = false;
+                        } else {
+                            $nuevo_stock = $stock_actual_db - $cant_float;
+                        }
+                    }
+
+                    if ($puede_guardar) {
+                        $sql_update = "UPDATE insumo SET stock_actual = '$nuevo_stock' WHERE id_insumo = '$id_real'";
+                        
+                        if (mysqli_query($con, $sql_update)) {
+                            
+                            $alerta_mensaje = "✅ Movimiento registrado. Stock de '{$nombre_real}' actualizado de $stock_actual_db a $nuevo_stock.";
+                            $alerta_tipo = "success";
+                            
+                            $input_insumo = '';
+                            $tipo_movimiento = '';
+                            $cantidad = '';
+                        } else {
+                            $alerta_mensaje = "❌ Error de BD al actualizar stock: " . mysqli_error($con);
+                            $alerta_tipo = "error";
+                        }
+                    }
+                } else {
+                    $alerta_mensaje = "ERROR: El insumo especificado no existe. Verifique el ID o Nombre.";
+                    $alerta_tipo = "error";
+                }
+            }
+        }
+    }
+}
+
+$sql_tabla = "SELECT id_insumo, nombre, stock_actual, unidad_medida, estado FROM insumo ORDER BY id_insumo ASC";
+$datos = mysqli_query($con, $sql_tabla);
+
+$val_insumo = $input_insumo;
+$val_tipo = $tipo_movimiento;
+$val_cant = $cantidad;
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gestión de Stock | Movimientos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/formInsumo.css"/> 
+        <link rel="stylesheet" href="CSS/formActualizarStock.css"/> 
+        <style>
+            .alerta-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+            .alerta-info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+            .alerta-warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+            .alerta-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+            .tabla-insumos tbody tr { cursor: default; }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Registro de Movimiento de Stock</h2>
+            
+            <?php if (!empty($alerta_mensaje)): ?>
+                <div class="alerta-<?= $alerta_tipo ?>"><?= $alerta_mensaje ?></div>
+            <?php endif; ?>
+
+            <form id="formStock" action="formActualizarStock.php" method="post">
+                
+                <input type="hidden" id="id_movimiento" name="id_movimiento"/>
+                
+                <div class="form-group">
+                    <label for="id_insumo">Nombre del Insumo</label>
+                    <input type="text" id="id_insumo" name="id_insumo" value="<?= htmlspecialchars($val_insumo) ?>" placeholder="Ingrese nombre del insumo" required/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tipo_movimiento">Tipo de Movimiento</label>
+                    <select id="tipo_movimiento" name="tipo_movimiento" required>
+                        <option value="" disabled <?= empty($val_tipo) ? 'selected' : '' ?>>Seleccione el Tipo</option>
+                        <option value="ENTRADA" <?= $val_tipo == 'ENTRADA' ? 'selected' : '' ?>>ENTRADA (Aumentar)</option>
+                        <option value="SALIDA" <?= $val_tipo == 'SALIDA' ? 'selected' : '' ?>>SALIDA (Disminuir)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="text" id="cantidad" name="cantidad" value="<?= htmlspecialchars($val_cant) ?>" required min="0.01" step="0.01"/>
+                </div>
+                
+                <div class="grupo-botones">
+                    <button type="submit" name="accion" value="guardar" class="btn btn-guardar">Procesar Movimiento</button>
+                    <button type="submit" name="accion" value="limpiar" class="btn btn-limpiar">Limpiar</button>
+                </div>
+            </form>
+            
+            <div class="tabla-insumos-container">
+                <h2>Listado de Insumos (Stock Actual)</h2>
+                <table class="tabla-insumos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Stock Actual</th>
+                            <th>Unidad de Medida</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        if ($datos && mysqli_num_rows($datos) > 0) {
+                            while($row = mysqli_fetch_array($datos, MYSQLI_ASSOC)) {
+                                ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($row['id_insumo']) ?></td>
+                                    <td><?= htmlspecialchars($row['nombre']) ?></td>
+                                    <td style="font-weight: bold;"><?= htmlspecialchars($row['stock_actual']) ?></td>
+                                    <td><?= htmlspecialchars($row['unidad_medida']) ?></td>
+                                    <td><?= htmlspecialchars($row['estado']) ?></td>
+                                </tr>
+                                <?php
+                            }
+                            mysqli_free_result($datos);
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan="5" style="text-align: center;">No se encontraron insumos registrados.</td>
+                            </tr>
+                            <?php
+                        }
+
+                        if (isset($con)) {
+                            mysqli_close($con); 
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </body>
+</html>

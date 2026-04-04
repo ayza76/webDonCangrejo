@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <meta charset="UTF-8">
+        <title>Nuestra Historia</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/nosotros.css">
+    </head>
+    <body>
+        <header class="nosotros-header">
+            <a href="index.php" class="back-link">
+                &larr; Página Principal
+            </a>
+            <h1 class="titulo-principal">Nuestra Historia y Filosofía</h1>
+        </header>
+
+        <main class="nosotros-main">
+            <section class="seccion-historia">
+                <h2 class="subtitulo">Cevicheria Don Cangrejo</h2>
+                <hr class="separador">
+                <p class="texto-intro">
+                    Desde nuestro primer local en San Miguel, nos hemos dedicado a traer el auténtico sabor del mar a tu mesa, 
+                    con la frescura del Pacífico y la pasión de la cocina peruana.
+                </p>
+            </section>
+
+            <div class="card-filosofia">
+                <h1 class="seccion-titulo color-primario">MISIÓN</h1>
+                <p class="texto">
+                    Ofrecer a nuestros clientes una experiencia culinaria completa, combinando la frescura y 
+                    sabor inigualable de la cocina marina con menús variados que se adaptan a sus gustos y necesidades, 
+                    siempre con un servicio cercano, cálido y de calidad.
+                </p>
+            </div>
+
+            <div class="card-filosofia">
+                <h1 class="seccion-titulo color-secundario">VISIÓN</h1>
+                <p class="texto">
+                    Consolidarnos como un referente gastronómico reconocido por nuestra especialidad en comida marina y 
+                    nuestra variedad de menús, creciendo de manera sostenible con más locales y llevando el sabor de Don
+                    Cangrejo a nuevas generaciones y regiones.
+                </p>
+            </div>
+
+            <p class="logo-nosotros"><img src="imagenes/DC Logo.png" alt="Don Cangrejo Logo Principal"></p>
+        </main>
+
+        <footer class="nosotros-footer">
+            <p>Pasión por el sabor y la tradición marina.</p>
+        </footer>
+    </body>
+</html>

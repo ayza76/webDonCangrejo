@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Menu  de Cocinero | Don Cangrejo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="description" content="Panel de control para Cocinero de la cevichería Don Cangrejo.">
+        <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/cabecera.css"> 
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo-container">
+                <img src="imagenes/DC_Logo_Cabecera.png" alt="Don Cangrejo Logo" class="logo">
+                <div class="logo-text">
+                    <span class="logo-line-1">Menu de</span>
+                    <span class="logo-line-2">Cocinero</span>
+                </div>
+            </div>
+            
+            <nav class="nav employee-nav">
+                <ul>
+                    <li><a href="loginUsuarioInterno.php" target="_top" class="logout-link">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </header>
+    </body>
+</html>
