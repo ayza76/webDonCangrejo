@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 
 require 'conexion.php'; 
@@ -118,5 +118,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </main>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <title>Acceso de Empleados - Don Cangrejo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png">
+    <link rel="stylesheet" href="CSS/login.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <header class="login-header">
+        <a href="index.html" class="back-link">
+            &larr; Página Principal
+        </a>
+    </header>
+
+    <main class="login-main">
+        <h1 class="titulo-principal">Cevichería Don Cangrejo</h1>
+        <h2 class="subtitulo-acceso">Acceso de Usuarios Internos (Modo Prueba)</h2>
+
+        <div class="login-card">
+            <form id="loginForm">
+                
+                <label for="usuario">Nombre de Usuario</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Ingrese cualquier nombre">
+
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" name="contrasena" placeholder="••••••••">
+                
+                <label for="rol">Rol</label>
+                <select id="rol" name="rol" required>
+                    <option value="" disabled selected>Seleccione su Rol</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Mesero">Mesero</option>
+                    <option value="Cocinero">Cocinero</option>
+                    <option value="Cajero">Cajero</option>
+                </select>
+
+                <div class="grupo-botones">
+                    <button type="submit" class="btn btn-ingresar">Ingresar</button>
+                    <button type="reset" class="btn btn-limpiar">Limpiar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Lógica simple para simular la navegación
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página se recargue
+
+            const rol = document.getElementById('rol').value;
+            
+            // Redirección según el rol seleccionado
+            switch(rol) {
+                case 'Administrador':
+                    window.location.href = 'menuAdministrador.html';
+                    break;
+                case 'Mesero':
+                    window.location.href = 'menuMesero.html';
+                    break;
+                case 'Cocinero':
+                    window.location.href = 'menuCocinero.html';
+                    break;
+                case 'Cajero':
+                    window.location.href = 'menuCajero.html';
+                    break;
+                default:
+                    alert("Por favor, selecciona un rol.");
+            }
+        });
+    </script>
 </body>
 </html>
