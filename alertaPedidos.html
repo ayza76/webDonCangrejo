@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php';
 
@@ -129,6 +129,127 @@ $segundos_refresh = 15;
                     echo "<tr><td colspan='5' style='text-align:center; padding: 30px; color: #666; font-size: 1.1em;'>No hay pedidos registrados en este momento.</td></tr>";
                 }
                 ?>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Cocina / Pedidos | Don Cangrejo</title>
+    <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+    <link rel="stylesheet" href="CSS/alertaPedidos.css"> 
+    <link rel="stylesheet" href="CSS/formInsumo.css"/>
+    <style>
+        /* Estilos adicionales para la previsualización del monitor */
+        .contenedor-tabla { padding: 20px; }
+        .badge-mesa { background: #007bff; color: white; padding: 5px 10px; border-radius: 50%; font-weight: bold; }
+        .badge-para-llevar { background: #ffc107; color: #333; padding: 5px 10px; border-radius: 5px; font-weight: bold; }
+        .info-delivery { color: #e83e8c; font-weight: bold; }
+        .fila-Pendiente { border-left: 5px solid #ffc107; background-color: #fffdf5; }
+        .fila-Entregado { border-left: 5px solid #28a745; opacity: 0.8; }
+        .select-estado { padding: 5px; border-radius: 4px; border: 1px solid #ccc; }
+        .btn-check { background: none; border: none; cursor: pointer; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+    <div class="header-top" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+        <div>
+            <h1>🍳 Monitor de Cocina</h1>
+            <small>Prioridad: Pendientes arriba (Modo Diseño - Datos Estáticos)</small>
+        </div>
+        <div style="background: #eee; padding: 10px; border-radius: 5px; font-weight: bold;">
+            Reloj: 12:45 PM
+        </div>
+    </div>
+
+    <div class="contenedor-tabla">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #333; color: white;">
+                    <th style="width: 80px; padding: 10px;">ID</th>
+                    <th style="width: 100px;">Hora</th>
+                    <th style="width: 150px;">Tipo Pedido</th>
+                    <th>Detalle del Pedido</th>
+                    <th style="width: 200px;">Estado / Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="fila-Pendiente" style="border-bottom: 1px solid #ddd;">
+                    <td style="text-align:center; font-weight:bold; font-size: 1.1em; padding: 15px;">#850</td>
+                    <td style="text-align:center;">12:30</td>
+                    <td>
+                        <div style="text-align:center">
+                            <span class="badge-mesa">05</span><br>
+                            <small>En Salón</small>
+                        </div>
+                    </td>
+                    <td class="col-detalle" style="padding: 10px;">
+                        <strong>Cliente: Roberto Vílchez</strong>
+                        <hr style="margin: 5px 0; border: 0; border-top: 1px dashed #ccc;">
+                        • Ceviche Clásico <b>(x2)</b><br>
+                        • Arroz con Mariscos <b>(x1)</b><br>
+                        • Chicha Morada 1L <b>(x1)</b>
+                    </td>
+                    <td style="text-align: center;">
+                        <select class="select-estado">
+                            <option value="Pendiente" selected>⏳ Pendiente</option>
+                            <option value="Entregado">✅ Entregado</option>
+                            <option value="Anulado">🚫 Anulado</option>
+                        </select>
+                        <button type="button" class="btn-check" onclick="alert('Estado actualizado (Simulación)')">💾</button>
+                    </td>
+                </tr>
+
+                <tr class="fila-Pendiente" style="border-bottom: 1px solid #ddd;">
+                    <td style="text-align:center; font-weight:bold; font-size: 1.1em; padding: 15px;">#851</td>
+                    <td style="text-align:center;">12:35</td>
+                    <td>
+                        <span class="info-delivery">🛵 Delivery</span><br>
+                        <small>Calle Los Jazmines 456, Urb. El Sol</small>
+                    </td>
+                    <td class="col-detalle" style="padding: 10px;">
+                        <strong>Cliente: Elena Santisteban</strong>
+                        <hr style="margin: 5px 0; border: 0; border-top: 1px dashed #ccc;">
+                        • Trío Marino <b>(x1)</b><br>
+                        • Inca Kola 1.5L <b>(x1)</b>
+                    </td>
+                    <td style="text-align: center;">
+                        <select class="select-estado">
+                            <option value="Pendiente" selected>⏳ Pendiente</option>
+                            <option value="Entregado">✅ Entregado</option>
+                        </select>
+                        <button type="button" class="btn-check" onclick="alert('Estado actualizado (Simulación)')">💾</button>
+                    </td>
+                </tr>
+
+                <tr class="fila-Entregado" style="border-bottom: 1px solid #ddd;">
+                    <td style="text-align:center; font-weight:bold; font-size: 1.1em; padding: 15px;">#849</td>
+                    <td style="text-align:center;">12:15</td>
+                    <td>
+                        <div style="text-align:center">
+                            <span class="badge-para-llevar">🛍 Para Llevar</span>
+                        </div>
+                    </td>
+                    <td class="col-detalle" style="padding: 10px;">
+                        <strong>Cliente: Marcos Aurelio Casas</strong>
+                        <hr style="margin: 5px 0; border: 0; border-top: 1px dashed #ccc;">
+                        • Jalea Mixta Familiar <b>(x1)</b>
+                    </td>
+                    <td style="text-align: center;">
+                        <select class="select-estado">
+                            <option value="Pendiente">⏳ Pendiente</option>
+                            <option value="Entregado" selected>✅ Entregado</option>
+                        </select>
+                        <button type="button" class="btn-check" onclick="alert('Estado actualizado (Simulación)')">💾</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

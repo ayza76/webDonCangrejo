@@ -365,7 +365,6 @@ $estado_html = $estado;
         </main>
     </body>
 </html> -->
-
 <!DOCTYPE html>
 <html lang="es-PE">
     <head>
@@ -398,29 +397,29 @@ $estado_html = $estado;
             <h1>CEVICHERIA DON CANGREJO</h1>
             <h2>Gestión de Usuarios Internos (Personal)</h2>
             
-            <div class="alerta-info">Modo Diseño: Visualización de perfiles de empleados sin conexión a BD.</div>
+            <div class="alerta-info">Modo Diseño: Visualización de perfiles de empleados (Datos de ejemplo).</div>
 
             <form id="formUsuarioInterno">
                 <input type="hidden" id="id_usuario" value="">
                 
                 <div class="form-group">
                     <label for="apnom">Nombres y Apellidos</label>
-                    <input type="text" id="apnom" placeholder="Ej: Lucho Alvarado" required />
+                    <input type="text" id="apnom" placeholder="Ej: Carlos Alberto Pérez" required />
                 </div>
                 
                 <div class="form-group">
                     <label for="dni">DNI</label>
-                    <input type="text" id="dni" maxlength="8" placeholder="12345678"/>
+                    <input type="text" id="dni" maxlength="8" placeholder="00000000"/>
                 </div>
                 
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
-                    <input type="text" id="direccion" placeholder="Calle Ejemplo 123, Lima"/>
+                    <input type="text" id="direccion" placeholder="Calle Los Alisos 456, Miraflores"/>
                 </div>
                 
                 <div class="form-group">
                     <label for="usuario_input">Nombre de Usuario</label>
-                    <input type="text" id="usuario_input" placeholder="lucho_cangrejo" />
+                    <input type="text" id="usuario_input" placeholder="usuario_demo" />
                 </div>
                 
                 <div class="form-group">
@@ -441,12 +440,12 @@ $estado_html = $estado;
                 
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" placeholder="987654321"/>
+                    <input type="tel" id="telefono" placeholder="900000000"/>
                 </div>
                 
                 <div class="form-group">
                     <label for="correo">Correo Electrónico</label>
-                    <input type="email" id="correo" placeholder="empleado@doncangrejo.com"/>
+                    <input type="text" id="correo" placeholder="ejemplo@doncangrejo.com"/>
                 </div>
                 
                 <div class="form-group">
@@ -459,7 +458,7 @@ $estado_html = $estado;
                 </div>
 
                 <div class="grupo-botones">
-                    <button type="button" class="btn btn-buscar" onclick="alert('Buscando empleado...')">Buscar</button>
+                    <button type="button" class="btn btn-buscar" onclick="alert('Buscando empleado ficticio...')">Buscar</button>
                     <button type="button" class="btn btn-guardar">Guardar Nuevo</button>
                     <button type="button" class="btn btn-modificar">Modificar</button>
                     <button type="button" class="btn btn-eliminar">Eliminar</button>
@@ -484,26 +483,26 @@ $estado_html = $estado;
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>Jose Gerson Loayza</td>
-                                <td>74589632</td>
-                                <td>jose_admin</td>
+                                <td>Carlos Alberto Pérez</td>
+                                <td>44556677</td>
+                                <td>carlos_admin</td>
                                 <td>Administrador</td>
                                 <td><span style="color: green; font-weight: bold;">Activo</span></td>
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td>Luis Alvarado Puyen</td>
-                                <td>71234567</td>
-                                <td>luis_mesero</td>
-                                <td>Mesero</td>
+                                <td>Mariana Sofía Torres</td>
+                                <td>88776655</td>
+                                <td>mariana_caja</td>
+                                <td>Cajero</td>
                                 <td><span style="color: green; font-weight: bold;">Activo</span></td>
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>Natividad Leon</td>
-                                <td>08521473</td>
-                                <td>nati_caja</td>
-                                <td>Cajero</td>
+                                <td>Ricardo Daniel Espinoza</td>
+                                <td>11223344</td>
+                                <td>ricardo_cocina</td>
+                                <td>Cocinero</td>
                                 <td><span style="color: red; font-weight: bold;">Inactivo</span></td>
                             </tr>
                         </tbody>
@@ -513,7 +512,6 @@ $estado_html = $estado;
         </main>
 
         <script>
-            // Lógica para cargar los datos del empleado al hacer clic en la tabla
             document.querySelectorAll('.tabla-usuarios tbody tr').forEach(fila => {
                 fila.addEventListener('click', () => {
                     const celdas = fila.getElementsByTagName('td');
@@ -522,21 +520,19 @@ $estado_html = $estado;
                     document.getElementById('dni').value = celdas[2].innerText;
                     document.getElementById('usuario_input').value = celdas[3].innerText;
                     
-                    // Sincronizar select de Rol
                     const rolVal = celdas[4].innerText;
                     const selectRol = document.getElementById('rol');
                     for(let i=0; i<selectRol.options.length; i++) {
                         if(selectRol.options[i].value === rolVal) selectRol.selectedIndex = i;
                     }
 
-                    // Sincronizar select de Estado
                     const estadoVal = celdas[5].innerText.trim();
                     const selectEstado = document.getElementById('estado');
                     for(let i=0; i<selectEstado.options.length; i++) {
                         if(selectEstado.options[i].value === estadoVal) selectEstado.selectedIndex = i;
                     }
 
-                    alert('Perfil de ' + celdas[1].innerText + ' cargado para edición.');
+                    alert('Perfil de ' + celdas[1].innerText + ' cargado (Datos de prueba).');
                 });
             });
         </script>

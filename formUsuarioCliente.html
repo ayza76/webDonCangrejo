@@ -297,7 +297,7 @@ $conf_contrasena_html = $conf_contrasena;
 <!DOCTYPE html>
 <html lang="es-PE">
     <head>
-        <title>Gestión de Usuarios Clientes | Don Cangrejo</title>
+        <title>Gestión de Clientes Usuarios | Don Cangrejo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png"/>
@@ -339,26 +339,26 @@ $conf_contrasena_html = $conf_contrasena;
                 </div>
                 <div class="form-group">
                     <label for="dni">DNI</label>
-                    <input type="text" id="dni" maxlength="8" placeholder="Carga automática" readonly/>
+                    <input type="text" id="dni" maxlength="8" placeholder="00000000" readonly/>
                 </div>
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
-                    <input type="text" id="direccion" placeholder="Carga automática" readonly/>
+                    <input type="text" id="direccion" placeholder="Calle Falsa 123" readonly/>
                 </div>
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="text" id="telefono" maxlength="9" placeholder="Carga automática" readonly/>
+                    <input type="text" id="telefono" maxlength="9" placeholder="900000000" readonly/>
                 </div>
                 <div class="form-group">
                     <label for="correo">Correo</label>
-                    <input type="text" id="correo" placeholder="Carga automática" readonly/>
+                    <input type="text" id="correo" placeholder="cliente@ejemplo.com" readonly/>
                 </div>
                 
                 <hr>
                 <h3>Credenciales de Acceso</h3>
                 <div class="form-group">
                     <label for="usuario">Usuario</label>
-                    <input type="text" id="usuario" placeholder="Ej: lucho2026"/>
+                    <input type="text" id="usuario" placeholder="Ej: usuario_cangrejo"/>
                 </div>
                 <div class="form-group">
                     <label for="contrasena">Contraseña</label>
@@ -370,7 +370,7 @@ $conf_contrasena_html = $conf_contrasena;
                 </div>
                 
                 <div class="grupo-botones">
-                    <button type="button" class="btn btn-buscar" onclick="alert('Buscando cliente...')">Buscar</button>
+                    <button type="button" class="btn btn-buscar" onclick="alert('Buscando registro aleatorio...')">Buscar</button>
                     <button type="button" class="btn btn-guardar">Guardar Nuevo</button>
                     <button type="button" class="btn btn-modificar">Modificar</button>
                     <button type="button" class="btn btn-eliminar">Eliminar</button>
@@ -394,20 +394,20 @@ $conf_contrasena_html = $conf_contrasena;
                         </thead>
                         <tbody>
                             <tr>
-                                <td>10</td>
-                                <td>Jose Gerson Loayza Leon</td>
-                                <td style="color: #28a745; font-weight: bold;">lucho_dev</td>
-                                <td>74589632</td>
-                                <td>951234789</td>
-                                <td>jose@mail.com</td>
+                                <td>50</td>
+                                <td>Andrés Gabriel Méndez</td>
+                                <td style="color: #28a745; font-weight: bold;">amendez_user</td>
+                                <td>40506070</td>
+                                <td>912345678</td>
+                                <td>andres.mendez@test.com</td>
                             </tr>
                             <tr>
-                                <td>11</td>
-                                <td>Luis Alvarado Puyen</td>
+                                <td>51</td>
+                                <td>Carla Ximena Ortiz</td>
                                 <td style="color: #999; font-style: italic;">Sin usuario</td>
-                                <td>71234567</td>
-                                <td>963852741</td>
-                                <td>luis@mail.com</td>
+                                <td>10203040</td>
+                                <td>998877665</td>
+                                <td>carla.ortiz@falso.pe</td>
                             </tr>
                         </tbody>
                     </table>
@@ -416,14 +416,13 @@ $conf_contrasena_html = $conf_contrasena;
         </main>
 
         <script>
-            // Simulación de carga de datos al hacer clic en la tabla
+            // Simulación de carga de datos al hacer clic en la tabla con datos ficticios
             document.querySelectorAll('.tabla-cliente tbody tr').forEach(fila => {
                 fila.addEventListener('click', () => {
                     const celdas = fila.getElementsByTagName('td');
                     document.getElementById('id_cliente').value = celdas[0].innerText;
                     document.getElementById('apnom').value = celdas[1].innerText;
                     
-                    // El campo usuario se carga si existe, si no, queda vacío
                     const userVal = celdas[2].innerText;
                     document.getElementById('usuario').value = (userVal === "Sin usuario") ? "" : userVal;
                     
@@ -431,7 +430,7 @@ $conf_contrasena_html = $conf_contrasena;
                     document.getElementById('telefono').value = celdas[4].innerText;
                     document.getElementById('correo').value = celdas[5].innerText;
                     
-                    alert('Datos cargados para: ' + celdas[1].innerText);
+                    alert('Simulación: Perfil cargado para ' + celdas[1].innerText);
                 });
             });
         </script>

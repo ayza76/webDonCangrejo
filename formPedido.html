@@ -318,7 +318,6 @@ $res_productos = mysqli_query($con, $sql_productos);
         </script>
     </body>
 </html> -->
-
 <!DOCTYPE html>
 <html lang="es-PE">
     <head>
@@ -358,7 +357,7 @@ $res_productos = mysqli_query($con, $sql_productos);
             <h1>CEVICHERIA DON CANGREJO</h1>
             <h2>Nuevo Pedido</h2>
             
-            <div class="alerta-info">Modo Diseño: El carrito muestra datos de prueba.</div>
+            <div class="alerta-info">Modo Diseño: El carrito muestra datos de prueba genéricos.</div>
 
             <form id="formPedido">
                 
@@ -370,9 +369,9 @@ $res_productos = mysqli_query($con, $sql_productos);
                             <label>Cliente:</label>
                             <select id="id_cliente" required>
                                 <option value="">-- Seleccione Cliente --</option>
-                                <option value="1">Jose Gerson Loayza</option>
-                                <option value="2">Luis Arturo Alvarado</option>
-                                <option value="3">Natividad Leon</option>
+                                <option value="1">Carlos Alberto Pérez</option>
+                                <option value="2">Mariana Sofía Torres</option>
+                                <option value="3">Ricardo Daniel Espinoza</option>
                             </select>
                         </div>
                         
@@ -394,11 +393,11 @@ $res_productos = mysqli_query($con, $sql_productos);
                         <div id="grupo_delivery" style="display: none;">
                             <div class="form-group">
                                 <label>Dirección:</label>
-                                <input type="text" id="direccion_entrega" placeholder="Av. Ejemplo 123">
+                                <input type="text" id="direccion_entrega" placeholder="Av. Los Tulipanes 123">
                             </div>
                             <div class="form-group">
                                 <label>Teléfono:</label>
-                                <input type="text" id="telefono_contacto" placeholder="987654321">
+                                <input type="text" id="telefono_contacto" placeholder="900111222">
                             </div>
                         </div>
                     </div>
@@ -422,7 +421,7 @@ $res_productos = mysqli_query($con, $sql_productos);
                             <input type="number" id="cantidad" value="1" min="1">
                         </div>
 
-                        <button type="button" class="btn-agregar" onclick="alert('Producto añadido al carrito (Simulación)')">+ AGREGAR</button>
+                        <button type="button" class="btn-agregar" onclick="alert('Simulación: Producto añadido')">+ AGREGAR</button>
                     </div>
                 </div>
 
@@ -442,28 +441,28 @@ $res_productos = mysqli_query($con, $sql_productos);
                             <tr>
                                 <td>Ceviche Simple</td>
                                 <td>25.00</td>
-                                <td>2</td>
-                                <td>50.00</td>
+                                <td>1</td>
+                                <td>25.00</td>
                                 <td><button type="button" class="btn-quitar" onclick="this.closest('tr').remove()">X</button></td>
                             </tr>
                             <tr>
-                                <td>Chicha Morada 1L</td>
-                                <td>12.00</td>
+                                <td>Jalea Mixta</td>
+                                <td>35.00</td>
                                 <td>1</td>
-                                <td>12.00</td>
+                                <td>35.00</td>
                                 <td><button type="button" class="btn-quitar" onclick="this.closest('tr').remove()">X</button></td>
                             </tr>
                             
                             <tr class="total-row">
                                 <td colspan="3" style="text-align: right;">TOTAL:</td>
-                                <td>S/ 62.00</td>
+                                <td>S/ 60.00</td>
                                 <td></td>
                             </tr>
                         </tbody>
                     </table>
                     
                     <div class="grupo-botones" style="margin-top: 20px;">
-                        <button type="button" onclick="alert('Pedido guardado con éxito')" class="btn btn-guardar">GUARDAR PEDIDO</button>
+                        <button type="button" onclick="alert('Pedido guardado (Simulación)')" class="btn btn-guardar">GUARDAR PEDIDO</button>
                         <button type="reset" class="btn btn-limpiar">CANCELAR</button>
                     </div>
                 </div>
@@ -488,7 +487,6 @@ $res_productos = mysqli_query($con, $sql_productos);
                     dMes.style.display = 'none';
                 }
             }
-            // Ejecutar al cargar para establecer estado inicial
             window.onload = toggleDelivery;
         </script>
     </body>

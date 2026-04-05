@@ -211,7 +211,6 @@ $res_historial = mysqli_query($con, $sql_historial);
     </script>
 </body>
 </html> -->
-
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
@@ -257,14 +256,14 @@ $res_historial = mysqli_query($con, $sql_historial);
                         <label>Seleccionar Pedido (Pendiente):</label>
                         <select id="combo_pedidos" required onchange="mostrarInformacion()">
                             <option value="" data-total="0.00" data-detalle="">-- Seleccione Pedido --</option>
-                            <option value="501" data-total="85.50" data-detalle="• Ceviche Simple (x1)<br>• Arroz con Mariscos (x1)<br>• Chicha Morada 1L (x1)">
-                                #501 - Jose Gerson (Mesa: 05)
+                            <option value="901" data-total="65.00" data-detalle="• Ceviche Especial (x1)<br>• Jalea Mixta (x1)">
+                                #901 - Andrés Méndez (Mesa: 04)
                             </option>
-                            <option value="502" data-total="42.00" data-detalle="• Jalea Mixta (x1)<br>• Inca Kola 500ml (x1)">
-                                #502 - Luis Alvarado (Para Llevar)
+                            <option value="902" data-total="32.50" data-detalle="• Arroz con Mariscos (x1)<br>• Chicha Vaso (x1)">
+                                #902 - Carla Ortiz (Para Llevar)
                             </option>
-                            <option value="503" data-total="120.00" data-detalle="• Ronda Marina (x1)<br>• Cerveza Pilsen (x2)">
-                                #503 - Natividad Leon (Mesa: 12)
+                            <option value="903" data-total="115.00" data-detalle="• Ronda Marina (x1)<br>• Jarra de Chicha (x1)<br>• Postre (x2)">
+                                #903 - Roberto Vílchez (Mesa: 08)
                             </option>
                         </select>
                     </div>
@@ -312,20 +311,20 @@ $res_historial = mysqli_query($con, $sql_historial);
                         </thead>
                         <tbody>
                             <tr>
-                                <td>P-001</td>
-                                <td>05/04 06:30</td>
-                                <td>#498</td>
-                                <td>Ana Maria Rojas</td>
+                                <td>P-101</td>
+                                <td>05/04 13:10</td>
+                                #895
+                                <td>Mariana Torres</td>
                                 <td><span class="metodo-tag">📱 Yape</span></td>
-                                <td style="font-weight:bold; color:#28a745;">S/ 35.00</td>
+                                <td style="font-weight:bold; color:#28a745;">S/ 45.00</td>
                             </tr>
                             <tr>
-                                <td>P-002</td>
-                                <td>05/04 06:15</td>
-                                <td>#497</td>
-                                <td>Carlos Tello</td>
+                                <td>P-102</td>
+                                <td>05/04 12:55</td>
+                                #894
+                                <td>Ricardo Espinoza</td>
                                 <td><span class="metodo-tag">💵 Efectivo</span></td>
-                                <td style="font-weight:bold; color:#28a745;">S/ 62.50</td>
+                                <td style="font-weight:bold; color:#28a745;">S/ 82.00</td>
                             </tr>
                         </tbody>
                     </table>
@@ -365,7 +364,7 @@ $res_historial = mysqli_query($con, $sql_historial);
             }
 
             alert("✅ Pago procesado con éxito (Simulación).\n\nEl pedido #" + pedido + " ha sido marcado como PAGADO.");
-            location.reload(); // Reinicia la vista para simular la limpieza tras cobrar
+            location.reload(); 
         }
     </script>
 </body>

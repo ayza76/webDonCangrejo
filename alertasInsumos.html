@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 require 'conexion.php';
 
 $sql_tabla = "SELECT * FROM insumo ORDER BY stock_actual ASC";
@@ -109,6 +109,119 @@ $datos = mysqli_query($con, $sql_tabla);
                                 mysqli_close($con); 
                             }
                             ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Alerta de Insumos | Don Cangrejo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/formInsumo.css"/>
+        
+        <style>
+            body { background-color: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+            
+            .header-top { 
+                display: flex; justify-content: space-between; align-items: center; 
+                max-width: 95%; margin: 20px auto; 
+            }
+            
+            .alerta-roja {
+                background-color: #ffe6e6; 
+                color: #cc0000;
+                font-weight: bold;
+            }
+            
+            .alerta-roja td { border-bottom: 1px solid #ffcccc; }
+
+            .tabla-insumos-container {
+                max-width: 95%;
+                margin: 0 auto;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+
+            .badge-ok { color: #28a745; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        
+        <div class="header-top">
+            <h1>⚠️ Reporte de Stock de Insumos</h1>
+            <a href="menuAdministrador.html" style="text-decoration: none; background: #333; color: white; padding: 10px 15px; border-radius: 5px;">
+                &larr; Volver al Menú
+            </a>
+        </div>
+
+        <main>
+            <div class="tabla-insumos-container">
+                <div style="background: #e7f3ff; padding: 10px; border-radius: 5px; margin-bottom: 15px; color: #004085;">
+                    <strong>Modo Diseño:</strong> Se simula la detección automática de bajo stock basada en el stock mínimo.
+                </div>
+
+                <h2>Listado General de Existencias</h2>
+                <div class="table-responsive">
+                    <table class="tabla-insumos" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Stock Actual</th>
+                                <th>Stock Mínimo</th>
+                                <th>Unidad</th>
+                                <th>Estado</th>
+                                <th>Situación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alerta-roja">
+                                <td>01</td>
+                                <td>Pescado Corvina</td>
+                                <td>3.00</td>
+                                <td>10.00</td>
+                                <td>KG</td>
+                                <td>DISPONIBLE</td>
+                                <td>🚨 BAJO STOCK</td>
+                            </tr>
+
+                            <tr>
+                                <td>02</td>
+                                <td>Limón Piurano</td>
+                                <td>45.00</td>
+                                <td>15.00</td>
+                                <td>KG</td>
+                                <td>DISPONIBLE</td>
+                                <td class="badge-ok">✅ STOCK ACEPTABLE</td>
+                            </tr>
+
+                            <tr class="alerta-roja">
+                                <td>03</td>
+                                <td>Ají Limo</td>
+                                <td>0.50</td>
+                                <td>2.00</td>
+                                <td>KG</td>
+                                <td>DISPONIBLE</td>
+                                <td>🚨 BAJO STOCK</td>
+                            </tr>
+
+                            <tr>
+                                <td>04</td>
+                                <td>Cebolla Roja</td>
+                                <td>20.00</td>
+                                <td>8.00</td>
+                                <td>KG</td>
+                                <td>DISPONIBLE</td>
+                                <td class="badge-ok">✅ STOCK ACEPTABLE</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -278,7 +278,6 @@ $correo_html = $correo;
         </main>
     </body>
 </html> -->
-
 <!DOCTYPE html>
 <html lang="es-PE">
     <head>
@@ -311,7 +310,7 @@ $correo_html = $correo;
             <h1>CEVICHERIA DON CANGREJO</h1>
             <h2>Gestión de Clientes</h2>
 
-            <div class="alerta-info">Vista de diseño: Los datos mostrados son de ejemplo.</div>
+            <div class="alerta-info">Vista de diseño: Los datos mostrados son ejemplos aleatorios.</div>
             
             <form id="formCliente">
                 
@@ -319,23 +318,23 @@ $correo_html = $correo;
                 
                 <div class="form-group">
                     <label for="apnom">Nombre y Apellido</label>
-                    <input type="text" id="apnom" name="apnom" placeholder="Ej: Juan Pérez" required/>
+                    <input type="text" id="apnom" name="apnom" placeholder="Ej: Roberto Vílchez" required/>
                 </div>
                 <div class="form-group">
                     <label for="dni">DNI</label>
-                    <input type="text" id="dni" name="dni" maxlength="8" placeholder="12345678"/>
+                    <input type="text" id="dni" name="dni" maxlength="8" placeholder="00000000"/>
                 </div>
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
-                    <input type="text" id="direccion" name="direccion" placeholder="Av. Siempre Viva 123"/>
+                    <input type="text" id="direccion" name="direccion" placeholder="Calle Los Jazmines 456"/>
                 </div>
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="text" id="telefono" name="telefono" maxlength="9" placeholder="987654321"/>
+                    <input type="text" id="telefono" name="telefono" maxlength="9" placeholder="900000000"/>
                 </div>
                 <div class="form-group">
                     <label for="correo">Correo</label>
-                    <input type="email" id="correo" name="correo" placeholder="usuario@correo.com"/>
+                    <input type="text" id="correo" name="correo" placeholder="cliente_demo@correo.com"/>
                 </div>
                 
                 <div class="grupo-botones">
@@ -363,28 +362,28 @@ $correo_html = $correo;
                         </thead>
                         <tbody>
                             <tr>
-                                <td>101</td>
-                                <td>Jose Gerson Loayza</td>
-                                <td>74589632</td>
-                                <td>Cercado de Lima</td>
-                                <td>951234789</td>
-                                <td>jose@mail.com</td>
+                                <td>201</td>
+                                <td>Roberto Vílchez Bazán</td>
+                                <td>45781236</td>
+                                <td>Av. Larco 1230 - Miraflores</td>
+                                <td>945123785</td>
+                                <td>rvilchez@ejemplo.com</td>
                             </tr>
                             <tr>
-                                <td>102</td>
-                                <td>Luis Arturo Alvarado</td>
-                                <td>71234567</td>
-                                <td>San Miguel</td>
-                                <td>963852741</td>
-                                <td>luis@mail.com</td>
+                                <td>202</td>
+                                <td>Elena Santisteban Ríos</td>
+                                <td>12457896</td>
+                                <td>Jr. Pizarro 450 - Trujillo</td>
+                                <td>978456123</td>
+                                <td>elena.rios@webmail.pe</td>
                             </tr>
                             <tr>
-                                <td>103</td>
-                                <td>Natividad Leon</td>
-                                <td>08521473</td>
-                                <td>Los Olivos</td>
-                                <td>987456321</td>
-                                <td>nleon@mail.com</td>
+                                <td>203</td>
+                                <td>Marcos Aurelio Casas</td>
+                                <td>07845126</td>
+                                <td>Urb. Santa Edelmira Mz. B</td>
+                                <td>912457863</td>
+                                <td>m.casas99@servidor.com</td>
                             </tr>
                         </tbody>
                     </table>
@@ -404,7 +403,7 @@ $correo_html = $correo;
                     document.getElementById('telefono').value = celdas[4].innerText;
                     document.getElementById('correo').value = celdas[5].innerText;
                     
-                    alert('Cliente seleccionado: ' + celdas[1].innerText);
+                    alert('Simulación: Datos cargados para ' + celdas[1].innerText);
                 });
             });
         </script>
