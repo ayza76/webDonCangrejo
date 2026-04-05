@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php'; 
 
@@ -191,4 +191,99 @@ $val_cant = $cantidad;
             </div>
         </main>
     </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <title>Gestión de Stock | Movimientos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+    <link rel="stylesheet" href="CSS/formInsumo.css"/> 
+    <link rel="stylesheet" href="CSS/formActualizarStock.css"/> 
+    <style>
+        .alerta-info { 
+            background-color: #d1ecf1; 
+            color: #0c5460; 
+            border: 1px solid #bee5eb; 
+            padding: 10px; 
+            margin-bottom: 20px; 
+            border-radius: 5px; 
+            text-align: center;
+        }
+        .tabla-insumos tbody tr { cursor: default; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>CEVICHERIA DON CANGREJO</h1>
+        <h2>Registro de Movimiento de Stock</h2>
+        
+        <div class="alerta-info">Modo de visualización: Los cambios no se guardarán en la base de datos.</div>
+
+        <form id="formStock">
+            <div class="form-group">
+                <label for="id_insumo">Nombre del Insumo</label>
+                <input type="text" id="id_insumo" name="id_insumo" placeholder="Ej: Pescado, Limón, Sal..." required/>
+            </div>
+            
+            <div class="form-group">
+                <label for="tipo_movimiento">Tipo de Movimiento</label>
+                <select id="tipo_movimiento" name="tipo_movimiento" required>
+                    <option value="" disabled selected>Seleccione el Tipo</option>
+                    <option value="ENTRADA">ENTRADA (Aumentar)</option>
+                    <option value="SALIDA">SALIDA (Disminuir)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" name="cantidad" placeholder="0.00" required min="0.01" step="0.01"/>
+            </div>
+            
+            <div class="grupo-botones">
+                <button type="button" class="btn btn-guardar" onclick="alert('Simulación: Movimiento Procesado')">Procesar Movimiento</button>
+                <button type="reset" class="btn btn-limpiar">Limpiar</button>
+            </div>
+        </form>
+        
+        <div class="tabla-insumos-container">
+            <h2>Listado de Insumos (Stock Actual)</h2>
+            <table class="tabla-insumos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Stock Actual</th>
+                        <th>Unidad de Medida</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Pescado Corvina</td>
+                        <td style="font-weight: bold;">15.50</td>
+                        <td>KG</td>
+                        <td>Activo</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Limón Piurano</td>
+                        <td style="font-weight: bold;">40.00</td>
+                        <td>KG</td>
+                        <td>Activo</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Cebolla Roja</td>
+                        <td style="font-weight: bold;">10.20</td>
+                        <td>KG</td>
+                        <td>Bajo Stock</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
 </html>

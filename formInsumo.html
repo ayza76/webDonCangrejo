@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php'; 
 
@@ -256,5 +256,149 @@ $est_html = $estado;
                 </div>
             </div>
         </main>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Gestión de Insumos | Don Cangrejo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/formInsumo.css"/>
+        <style>
+            .alerta-info { 
+                background-color: #d1ecf1; 
+                color: #0c5460; 
+                border: 1px solid #bee5eb; 
+                padding: 10px; 
+                margin-bottom: 20px; 
+                border-radius: 5px; 
+                text-align: center;
+            }
+            .tabla-insumos tbody tr {
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .tabla-insumos tbody tr:hover {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Gestión de Insumos</h2>
+            
+            <div class="alerta-info">Vista de diseño: Modo local (Sin conexión a base de datos).</div>
+
+            <form id="formInsumo">
+                <input type="hidden" id="id_insumo" name="id_insumo" value=""/>
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre del Insumo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej: Camote, Ají Limo..." required/>
+                </div>
+                <div class="form-group">
+                    <label for="stock_actual">Stock Actual</label>
+                    <input type="number" id="stock_actual" name="stock_actual" placeholder="0.00" step="0.01"/>
+                </div>
+                <div class="form-group">
+                    <label for="stock_minimo">Stock Mínimo</label>
+                    <input type="number" id="stock_minimo" name="stock_minimo" placeholder="0.00" step="0.01"/>
+                </div>
+                <div class="form-group">
+                    <label for="unidad_medida">Unidad de Medida</label>
+                    <input type="text" id="unidad_medida" name="unidad_medida" placeholder="KG, Unidades, Litros..."/>
+                </div>
+                <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <select id="estado" name="estado">
+                        <option value="" disabled selected>Seleccione el estado</option>
+                        <option value="DISPONIBLE">DISPONIBLE</option>
+                        <option value="AGOTADO">AGOTADO</option>
+                    </select>
+                </div>
+                
+                <div class="grupo-botones">
+                    <button type="button" class="btn btn-buscar">Buscar</button>
+                    <button type="button" class="btn btn-guardar">Guardar Nuevo</button>
+                    <button type="button" class="btn btn-modificar">Modificar</button>
+                    <button type="button" class="btn btn-eliminar">Eliminar</button>
+                    <button type="reset" class="btn btn-limpiar">Limpiar</button>
+                </div>
+            </form>
+            
+            <div class="tabla-insumos-container">
+                <h2>Listado de Insumos</h2>
+                <div class="table-responsive">
+                    <table class="tabla-insumos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Stock Actual</th>
+                                <th>Stock Minimo</th>
+                                <th>Unidad de Medida</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Camote Amarillo</td>
+                                <td>25.00</td>
+                                <td>5.00</td>
+                                <td>KG</td>
+                                <td>DISPONIBLE</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Ají Limo</td>
+                                <td>2.50</td>
+                                <td>1.00</td>
+                                <td>KG</td>
+                                <td>DISPONIBLE</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Culantro</td>
+                                <td>0.00</td>
+                                <td>0.50</td>
+                                <td>Atados</td>
+                                <td style="color: red; font-weight: bold;">AGOTADO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            // Lógica para cargar datos al hacer clic en la tabla
+            document.querySelectorAll('.tabla-insumos tbody tr').forEach(fila => {
+                fila.addEventListener('click', () => {
+                    const celdas = fila.getElementsByTagName('td');
+                    document.getElementById('id_insumo').value = celdas[0].innerText;
+                    document.getElementById('nombre').value = celdas[1].innerText;
+                    document.getElementById('stock_actual').value = celdas[2].innerText;
+                    document.getElementById('stock_minimo').value = celdas[3].innerText;
+                    document.getElementById('unidad_medida').value = celdas[4].innerText;
+                    
+                    // Ajustar el select del estado
+                    const estadoText = celdas[5].innerText.trim();
+                    const selectEstado = document.getElementById('estado');
+                    for (let i = 0; i < selectEstado.options.length; i++) {
+                        if (selectEstado.options[i].value === estadoText) {
+                            selectEstado.selectedIndex = i;
+                            break;
+                        }
+                    }
+
+                    alert('Insumo cargado: ' + celdas[1].innerText);
+                });
+            });
+        </script>
     </body>
 </html>

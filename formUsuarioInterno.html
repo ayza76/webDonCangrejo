@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php'; 
 
@@ -363,5 +363,182 @@ $estado_html = $estado;
                 </div>
             </div>
         </main>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Gestión Usuarios Internos | Don Cangrejo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png"/>
+        <link rel="stylesheet" href="CSS/formUsuarioInterno.css"/> 
+        <style>
+            .alerta-info { 
+                background-color: #d1ecf1; 
+                color: #0c5460; 
+                border: 1px solid #bee5eb; 
+                padding: 10px; 
+                margin-bottom: 20px; 
+                border-radius: 5px; 
+                text-align: center;
+            }
+            .tabla-usuarios tbody tr {
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .tabla-usuarios tbody tr:hover {
+                background-color: #f5f5f5;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Gestión de Usuarios Internos (Personal)</h2>
+            
+            <div class="alerta-info">Modo Diseño: Visualización de perfiles de empleados sin conexión a BD.</div>
+
+            <form id="formUsuarioInterno">
+                <input type="hidden" id="id_usuario" value="">
+                
+                <div class="form-group">
+                    <label for="apnom">Nombres y Apellidos</label>
+                    <input type="text" id="apnom" placeholder="Ej: Lucho Alvarado" required />
+                </div>
+                
+                <div class="form-group">
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" maxlength="8" placeholder="12345678"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" placeholder="Calle Ejemplo 123, Lima"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="usuario_input">Nombre de Usuario</label>
+                    <input type="text" id="usuario_input" placeholder="lucho_cangrejo" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="text" id="contrasena" placeholder="•••••••••••••">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rol">Rol / Cargo</label>
+                    <select id="rol">
+                        <option value="" disabled selected>Seleccione el rol</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Mesero">Mesero</option>
+                        <option value="Cocinero">Cocinero</option>
+                        <option value="Cajero">Cajero</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="987654321"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" placeholder="empleado@doncangrejo.com"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="estado">Estado Laboral</label>
+                    <select id="estado">
+                        <option value="" disabled selected>Seleccione el estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="grupo-botones">
+                    <button type="button" class="btn btn-buscar" onclick="alert('Buscando empleado...')">Buscar</button>
+                    <button type="button" class="btn btn-guardar">Guardar Nuevo</button>
+                    <button type="button" class="btn btn-modificar">Modificar</button>
+                    <button type="button" class="btn btn-eliminar">Eliminar</button>
+                    <button type="reset" class="btn btn-limpiar">Limpiar Pantalla</button>
+                </div>
+            </form>
+            
+            <div class="tabla-usuarios-container">
+                <h2>Listado de Personal</h2>
+                <div class="table-responsive">
+                    <table class="tabla-usuarios">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Empleado</th>
+                                <th>DNI</th>
+                                <th>Usuario</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Jose Gerson Loayza</td>
+                                <td>74589632</td>
+                                <td>jose_admin</td>
+                                <td>Administrador</td>
+                                <td><span style="color: green; font-weight: bold;">Activo</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Luis Alvarado Puyen</td>
+                                <td>71234567</td>
+                                <td>luis_mesero</td>
+                                <td>Mesero</td>
+                                <td><span style="color: green; font-weight: bold;">Activo</span></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Natividad Leon</td>
+                                <td>08521473</td>
+                                <td>nati_caja</td>
+                                <td>Cajero</td>
+                                <td><span style="color: red; font-weight: bold;">Inactivo</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            // Lógica para cargar los datos del empleado al hacer clic en la tabla
+            document.querySelectorAll('.tabla-usuarios tbody tr').forEach(fila => {
+                fila.addEventListener('click', () => {
+                    const celdas = fila.getElementsByTagName('td');
+                    document.getElementById('id_usuario').value = celdas[0].innerText;
+                    document.getElementById('apnom').value = celdas[1].innerText;
+                    document.getElementById('dni').value = celdas[2].innerText;
+                    document.getElementById('usuario_input').value = celdas[3].innerText;
+                    
+                    // Sincronizar select de Rol
+                    const rolVal = celdas[4].innerText;
+                    const selectRol = document.getElementById('rol');
+                    for(let i=0; i<selectRol.options.length; i++) {
+                        if(selectRol.options[i].value === rolVal) selectRol.selectedIndex = i;
+                    }
+
+                    // Sincronizar select de Estado
+                    const estadoVal = celdas[5].innerText.trim();
+                    const selectEstado = document.getElementById('estado');
+                    for(let i=0; i<selectEstado.options.length; i++) {
+                        if(selectEstado.options[i].value === estadoVal) selectEstado.selectedIndex = i;
+                    }
+
+                    alert('Perfil de ' + celdas[1].innerText + ' cargado para edición.');
+                });
+            });
+        </script>
     </body>
 </html>

@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php'; 
 
@@ -276,5 +276,137 @@ $correo_html = $correo;
                 </div>
             </div>
         </main>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Gestión de Clientes | Don Cangrejo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png"/>
+        <link rel="stylesheet" href="CSS/formCliente.css"/>
+        <style>
+            .alerta-info { 
+                background-color: #d1ecf1; 
+                color: #0c5460; 
+                border: 1px solid #bee5eb; 
+                padding: 10px; 
+                margin-bottom: 20px; 
+                border-radius: 5px; 
+                text-align: center;
+            }
+            .tabla-cliente tbody tr {
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .tabla-cliente tbody tr:hover {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Gestión de Clientes</h2>
+
+            <div class="alerta-info">Vista de diseño: Los datos mostrados son de ejemplo.</div>
+            
+            <form id="formCliente">
+                
+                <input type="hidden" id="id_cliente" name="id_cliente" value=""/>
+                
+                <div class="form-group">
+                    <label for="apnom">Nombre y Apellido</label>
+                    <input type="text" id="apnom" name="apnom" placeholder="Ej: Juan Pérez" required/>
+                </div>
+                <div class="form-group">
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" name="dni" maxlength="8" placeholder="12345678"/>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" name="direccion" placeholder="Av. Siempre Viva 123"/>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono" maxlength="9" placeholder="987654321"/>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" placeholder="usuario@correo.com"/>
+                </div>
+                
+                <div class="grupo-botones">
+                    <button type="button" class="btn btn-buscar">Buscar</button>
+                    <button type="button" class="btn btn-guardar">Guardar Nuevo</button>
+                    <button type="button" class="btn btn-modificar">Modificar</button>
+                    <button type="button" class="btn btn-eliminar">Eliminar</button>
+                    <button type="reset" class="btn btn-limpiar">Limpiar</button>
+                </div>
+            </form>
+            
+            <div class="tabla-cliente-container">
+                <h2>Listado de Clientes</h2>
+                <div class="table-responsive">
+                    <table class="tabla-cliente">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombres y Apellidos</th>
+                                <th>DNI</th>
+                                <th>Direccion</th>
+                                <th>Telefono</th>
+                                <th>Correo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>Jose Gerson Loayza</td>
+                                <td>74589632</td>
+                                <td>Cercado de Lima</td>
+                                <td>951234789</td>
+                                <td>jose@mail.com</td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Luis Arturo Alvarado</td>
+                                <td>71234567</td>
+                                <td>San Miguel</td>
+                                <td>963852741</td>
+                                <td>luis@mail.com</td>
+                            </tr>
+                            <tr>
+                                <td>103</td>
+                                <td>Natividad Leon</td>
+                                <td>08521473</td>
+                                <td>Los Olivos</td>
+                                <td>987456321</td>
+                                <td>nleon@mail.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            // Pequeña función para simular la selección de un cliente de la tabla
+            document.querySelectorAll('.tabla-cliente tbody tr').forEach(fila => {
+                fila.addEventListener('click', () => {
+                    const celdas = fila.getElementsByTagName('td');
+                    document.getElementById('id_cliente').value = celdas[0].innerText;
+                    document.getElementById('apnom').value = celdas[1].innerText;
+                    document.getElementById('dni').value = celdas[2].innerText;
+                    document.getElementById('direccion').value = celdas[3].innerText;
+                    document.getElementById('telefono').value = celdas[4].innerText;
+                    document.getElementById('correo').value = celdas[5].innerText;
+                    
+                    alert('Cliente seleccionado: ' + celdas[1].innerText);
+                });
+            });
+        </script>
     </body>
 </html>

@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php'; 
 
@@ -292,5 +292,148 @@ $conf_contrasena_html = $conf_contrasena;
                 </div>
             </div>
         </main>
+    </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Gestión de Usuarios Clientes | Don Cangrejo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="imagenes/DC_Logo_Cabecera.png"/>
+        <link rel="stylesheet" href="CSS/formClienteUsuario.css"/>
+        <style>
+            .alerta-info { 
+                background-color: #d1ecf1; 
+                color: #0c5460; 
+                border: 1px solid #bee5eb; 
+                padding: 10px; 
+                margin-bottom: 20px; 
+                border-radius: 5px; 
+                text-align: center;
+            }
+            .tabla-cliente tbody tr { 
+                cursor: pointer; 
+                transition: background-color 0.2s;
+            }
+            .tabla-cliente tbody tr:hover {
+                background-color: #f2f2f2;
+            }
+            hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+            input[readonly] { background-color: #f9f9f9; color: #666; cursor: not-allowed; }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Gestión de Clientes Usuarios</h2>
+
+            <div class="alerta-info">Modo Diseño: Los datos personales son de solo lectura hasta buscar un cliente.</div>
+            
+            <form id="formUsuarioCliente">
+                <input type="hidden" id="id_cliente" value=""/>
+                
+                <div class="form-group">
+                    <label for="apnom">Nombre y Apellido</label>
+                    <input type="text" id="apnom" placeholder="Ingrese nombre para buscar..." required/>
+                </div>
+                <div class="form-group">
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" maxlength="8" placeholder="Carga automática" readonly/>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" placeholder="Carga automática" readonly/>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" maxlength="9" placeholder="Carga automática" readonly/>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="text" id="correo" placeholder="Carga automática" readonly/>
+                </div>
+                
+                <hr>
+                <h3>Credenciales de Acceso</h3>
+                <div class="form-group">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" placeholder="Ej: lucho2026"/>
+                </div>
+                <div class="form-group">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" placeholder="••••••••"/>
+                </div>
+                <div class="form-group">
+                    <label for="conf_contrasena">Confirmar Contraseña</label>
+                    <input type="password" id="conf_contrasena" placeholder="••••••••"/>
+                </div>
+                
+                <div class="grupo-botones">
+                    <button type="button" class="btn btn-buscar" onclick="alert('Buscando cliente...')">Buscar</button>
+                    <button type="button" class="btn btn-guardar">Guardar Nuevo</button>
+                    <button type="button" class="btn btn-modificar">Modificar</button>
+                    <button type="button" class="btn btn-eliminar">Eliminar</button>
+                    <button type="reset" class="btn btn-limpiar">Limpiar</button>
+                </div>
+            </form>
+            
+            <div class="tabla-cliente-container">
+                <h2>Listado de Clientes y Cuentas</h2>
+                <div class="table-responsive">
+                    <table class="tabla-cliente">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombres y Apellidos</th>
+                                <th>Usuario</th>
+                                <th>DNI</th>
+                                <th>Telefono</th>
+                                <th>Correo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10</td>
+                                <td>Jose Gerson Loayza Leon</td>
+                                <td style="color: #28a745; font-weight: bold;">lucho_dev</td>
+                                <td>74589632</td>
+                                <td>951234789</td>
+                                <td>jose@mail.com</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Luis Alvarado Puyen</td>
+                                <td style="color: #999; font-style: italic;">Sin usuario</td>
+                                <td>71234567</td>
+                                <td>963852741</td>
+                                <td>luis@mail.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            // Simulación de carga de datos al hacer clic en la tabla
+            document.querySelectorAll('.tabla-cliente tbody tr').forEach(fila => {
+                fila.addEventListener('click', () => {
+                    const celdas = fila.getElementsByTagName('td');
+                    document.getElementById('id_cliente').value = celdas[0].innerText;
+                    document.getElementById('apnom').value = celdas[1].innerText;
+                    
+                    // El campo usuario se carga si existe, si no, queda vacío
+                    const userVal = celdas[2].innerText;
+                    document.getElementById('usuario').value = (userVal === "Sin usuario") ? "" : userVal;
+                    
+                    document.getElementById('dni').value = celdas[3].innerText;
+                    document.getElementById('telefono').value = celdas[4].innerText;
+                    document.getElementById('correo').value = celdas[5].innerText;
+                    
+                    alert('Datos cargados para: ' + celdas[1].innerText);
+                });
+            });
+        </script>
     </body>
 </html>

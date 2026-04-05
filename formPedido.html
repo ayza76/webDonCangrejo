@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php'; 
 
@@ -315,6 +315,181 @@ $res_productos = mysqli_query($con, $sql_productos);
                 document.forms[0].appendChild(btn);
                 btn.click();
             }
+        </script>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es-PE">
+    <head>
+        <title>Registrar Pedido | Don Cangrejo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+        <link rel="stylesheet" href="CSS/formInsumo.css"/> 
+        <link rel="stylesheet" href="CSS/formPedidos.css"/> 
+        <style>
+            .alerta-info { 
+                background-color: #d1ecf1; 
+                color: #0c5460; 
+                border: 1px solid #bee5eb; 
+                padding: 10px; 
+                margin-bottom: 20px; 
+                border-radius: 5px; 
+                text-align: center;
+            }
+            .total-row td {
+                font-size: 1.2em;
+                font-weight: bold;
+                background-color: #f8f9fa;
+            }
+            .btn-quitar {
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>CEVICHERIA DON CANGREJO</h1>
+            <h2>Nuevo Pedido</h2>
+            
+            <div class="alerta-info">Modo Diseño: El carrito muestra datos de prueba.</div>
+
+            <form id="formPedido">
+                
+                <div class="seccion-formulario">
+                    <div class="columna">
+                        <h3>1. Datos del Pedido</h3>
+                        
+                        <div class="form-group">
+                            <label>Cliente:</label>
+                            <select id="id_cliente" required>
+                                <option value="">-- Seleccione Cliente --</option>
+                                <option value="1">Jose Gerson Loayza</option>
+                                <option value="2">Luis Arturo Alvarado</option>
+                                <option value="3">Natividad Leon</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Tipo:</label>
+                            <select id="tipo_pedido" required onchange="toggleDelivery()">
+                                <option value="Mesa">Mesa</option>
+                                <option value="Para Llevar">Para Llevar</option>
+                                <option value="Delivery">Delivery</option>
+                                <option value="Online">Online</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="grupo_mesa">
+                            <label>Mesa:</label>
+                            <input type="number" id="id_mesa" placeholder="Nro Mesa">
+                        </div>
+                        
+                        <div id="grupo_delivery" style="display: none;">
+                            <div class="form-group">
+                                <label>Dirección:</label>
+                                <input type="text" id="direccion_entrega" placeholder="Av. Ejemplo 123">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono:</label>
+                                <input type="text" id="telefono_contacto" placeholder="987654321">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columna">
+                        <h3>2. Agregar Producto</h3>
+                        
+                        <div class="form-group">
+                            <label>Producto:</label>
+                            <select id="id_producto">
+                                <option value="">-- Buscar Producto --</option>
+                                <option value="1">Ceviche Simple - S/ 25.00</option>
+                                <option value="2">Arroz con Mariscos - S/ 30.00</option>
+                                <option value="3">Chicha Morada 1L - S/ 12.00</option>
+                                <option value="4">Jalea Mixta - S/ 35.00</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Cantidad:</label>
+                            <input type="number" id="cantidad" value="1" min="1">
+                        </div>
+
+                        <button type="button" class="btn-agregar" onclick="alert('Producto añadido al carrito (Simulación)')">+ AGREGAR</button>
+                    </div>
+                </div>
+
+                <div class="tabla-insumos-container">
+                    <h3>3. Detalle (Carrito)</h3>
+                    <table class="tabla-detalle">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cant.</th>
+                                <th>Subtotal</th>
+                                <th>Quitar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ceviche Simple</td>
+                                <td>25.00</td>
+                                <td>2</td>
+                                <td>50.00</td>
+                                <td><button type="button" class="btn-quitar" onclick="this.closest('tr').remove()">X</button></td>
+                            </tr>
+                            <tr>
+                                <td>Chicha Morada 1L</td>
+                                <td>12.00</td>
+                                <td>1</td>
+                                <td>12.00</td>
+                                <td><button type="button" class="btn-quitar" onclick="this.closest('tr').remove()">X</button></td>
+                            </tr>
+                            
+                            <tr class="total-row">
+                                <td colspan="3" style="text-align: right;">TOTAL:</td>
+                                <td>S/ 62.00</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="grupo-botones" style="margin-top: 20px;">
+                        <button type="button" onclick="alert('Pedido guardado con éxito')" class="btn btn-guardar">GUARDAR PEDIDO</button>
+                        <button type="reset" class="btn btn-limpiar">CANCELAR</button>
+                    </div>
+                </div>
+
+            </form>
+        </main>
+
+        <script>
+            function toggleDelivery() {
+                const tipo = document.getElementById('tipo_pedido').value;
+                const dDel = document.getElementById('grupo_delivery');
+                const dMes = document.getElementById('grupo_mesa');
+                
+                if (tipo === 'Delivery') {
+                    dDel.style.display = 'block';
+                    dMes.style.display = 'none';
+                } else if (tipo === 'Mesa') {
+                    dDel.style.display = 'none';
+                    dMes.style.display = 'block';
+                } else {
+                    dDel.style.display = 'none';
+                    dMes.style.display = 'none';
+                }
+            }
+            // Ejecutar al cargar para establecer estado inicial
+            window.onload = toggleDelivery;
         </script>
     </body>
 </html>

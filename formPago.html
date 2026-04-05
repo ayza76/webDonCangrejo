@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require 'conexion.php'; 
 
@@ -207,6 +207,165 @@ $res_historial = mysqli_query($con, $sql_historial);
                 txtMonto.innerText = "0.00";
                 boxDetalle.innerHTML = "<span style='color:#999; font-style:italic;'>Seleccione un pedido para ver el detalle...</span>";
             }
+        }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <title>Caja - Registrar Pago | Don Cangrejo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="imagenes/DC_Logo_Cabecera.png">
+    <link rel="stylesheet" href="CSS/formInsumo.css"/>
+    <link rel="stylesheet" href="CSS/formPago.css"/> 
+    <style>
+        .alerta-info { 
+            background-color: #d1ecf1; 
+            color: #0c5460; 
+            border: 1px solid #bee5eb; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border-radius: 8px; 
+            text-align: center;
+            font-weight: bold;
+        }
+        .metodo-tag {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>CEVICHERIA DON CANGREJO</h1>
+        <h2>Módulo de Caja</h2>
+
+        <div class="alerta-info">🖥️ MODO PREVISUALIZACIÓN: Los pagos registrados no afectarán la base de datos real.</div>
+
+        <div class="caja-container">
+            
+            <div class="panel-cobro">
+                <h3>💰 Registrar Nuevo Pago</h3>
+                <form id="formPago">
+                    
+                    <div class="form-group">
+                        <label>Seleccionar Pedido (Pendiente):</label>
+                        <select id="combo_pedidos" required onchange="mostrarInformacion()">
+                            <option value="" data-total="0.00" data-detalle="">-- Seleccione Pedido --</option>
+                            <option value="501" data-total="85.50" data-detalle="• Ceviche Simple (x1)<br>• Arroz con Mariscos (x1)<br>• Chicha Morada 1L (x1)">
+                                #501 - Jose Gerson (Mesa: 05)
+                            </option>
+                            <option value="502" data-total="42.00" data-detalle="• Jalea Mixta (x1)<br>• Inca Kola 500ml (x1)">
+                                #502 - Luis Alvarado (Para Llevar)
+                            </option>
+                            <option value="503" data-total="120.00" data-detalle="• Ronda Marina (x1)<br>• Cerveza Pilsen (x2)">
+                                #503 - Natividad Leon (Mesa: 12)
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detalle del Consumo:</label>
+                        <div id="box_detalle" class="ticket-preview">
+                            <span style="color:#999; font-style:italic;">Seleccione un pedido para ver el detalle...</span>
+                        </div>
+                    </div>
+
+                    <div class="display-total">
+                        <label>Total a Pagar:</label>
+                        <p class="total-grande">S/ <span id="txt_monto">0.00</span></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Método de Pago:</label>
+                        <select id="metodo_pago" required>
+                            <option value="" disabled selected>-- Seleccione Método --</option>
+                            <option value="Efectivo">💵 Efectivo</option>
+                            <option value="Tarjeta">💳 Tarjeta Crédito/Débito</option>
+                            <option value="Yape">📱 Yape</option>
+                            <option value="Plin">📱 Plin</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn-cobrar" onclick="confirmarSimulacion()">CONFIRMAR PAGO</button>
+                </form>
+            </div>
+
+            <div class="panel-historial">
+                <h3>📜 Últimos Comprobantes Emitidos</h3>
+                <div class="table-responsive">
+                    <table class="tabla-pagos">
+                        <thead>
+                            <tr>
+                                <th>ID Pago</th>
+                                <th>Fecha/Hora</th>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Método</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>P-001</td>
+                                <td>05/04 06:30</td>
+                                <td>#498</td>
+                                <td>Ana Maria Rojas</td>
+                                <td><span class="metodo-tag">📱 Yape</span></td>
+                                <td style="font-weight:bold; color:#28a745;">S/ 35.00</td>
+                            </tr>
+                            <tr>
+                                <td>P-002</td>
+                                <td>05/04 06:15</td>
+                                <td>#497</td>
+                                <td>Carlos Tello</td>
+                                <td><span class="metodo-tag">💵 Efectivo</span></td>
+                                <td style="font-weight:bold; color:#28a745;">S/ 62.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        function mostrarInformacion() {
+            const combo = document.getElementById("combo_pedidos");
+            const boxDetalle = document.getElementById("box_detalle");
+            const txtMonto = document.getElementById("txt_monto");
+
+            const opcionSeleccionada = combo.options[combo.selectedIndex];
+
+            const total = opcionSeleccionada.getAttribute("data-total");
+            const detalle = opcionSeleccionada.getAttribute("data-detalle");
+
+            if (total && total !== "0.00") {
+                txtMonto.innerText = parseFloat(total).toFixed(2);
+                boxDetalle.innerHTML = "<strong style='display:block; margin-bottom:10px; color:#333; text-decoration:underline;'>TICKET DE CONSUMO:</strong>" + detalle;
+            } else {
+                txtMonto.innerText = "0.00";
+                boxDetalle.innerHTML = "<span style='color:#999; font-style:italic;'>Seleccione un pedido para ver el detalle...</span>";
+            }
+        }
+
+        function confirmarSimulacion() {
+            const pedido = document.getElementById("combo_pedidos").value;
+            const metodo = document.getElementById("metodo_pago").value;
+
+            if (!pedido || !metodo) {
+                alert("Por favor, seleccione un pedido y un método de pago.");
+                return;
+            }
+
+            alert("✅ Pago procesado con éxito (Simulación).\n\nEl pedido #" + pedido + " ha sido marcado como PAGADO.");
+            location.reload(); // Reinicia la vista para simular la limpieza tras cobrar
         }
     </script>
 </body>
